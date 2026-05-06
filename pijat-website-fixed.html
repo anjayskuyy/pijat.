@@ -1,0 +1,2795 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serene Touch — Jasa Pijat Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8975A;
+    --gold-light: #D4B483;
+    --gold-dark: #8A6E3A;
+    --cream: #FAF7F2;
+    --cream2: #F2EDE4;
+    --dark: #1C1712;
+    --dark2: #2E2820;
+    --text: #3D3529;
+    --muted: #7A6E5F;
+    --white: #FFFFFF;
+    --success: #3B6D11;
+    --danger: #A32D2D;
+    --info: #185FA5;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  /* TYPOGRAPHY */
+  .serif { font-family: 'Cormorant Garamond', serif; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.4s, box-shadow 0.4s;
+  }
+  nav.scrolled { background: rgba(28,23,18,0.95); backdrop-filter: blur(12px); box-shadow: 0 2px 30px rgba(0,0,0,0.3); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--gold); letter-spacing: 0.05em; }
+  .nav-logo span { font-style: italic; color: var(--cream); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--dark); padding: 0.55rem 1.5rem; border-radius: 50px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; border: none; transition: background 0.3s, transform 0.2s; }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* HERO */
+  #hero {
+    height: 100vh; min-height: 700px;
+    background: linear-gradient(160deg, #1C1712 0%, #2E2820 50%, #3D3529 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(ellipse at 70% 50%, rgba(184,151,90,0.15) 0%, transparent 60%),
+                      radial-gradient(ellipse at 20% 80%, rgba(184,151,90,0.08) 0%, transparent 50%);
+  }
+  .hero-lines {
+    position: absolute; inset: 0; opacity: 0.06;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(184,151,90,0.5) 60px, rgba(184,151,90,0.5) 61px);
+  }
+  .hero-content { position: relative; text-align: center; max-width: 800px; padding: 0 2rem; animation: fadeUp 1.2s ease both; }
+  .hero-tag { display: inline-block; border: 1px solid rgba(184,151,90,0.4); color: var(--gold); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.4rem 1.2rem; border-radius: 50px; margin-bottom: 2rem; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 300; color: var(--cream); line-height: 1.1; margin-bottom: 1.5rem; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { color: rgba(250,247,242,0.6); font-size: 1rem; line-height: 1.8; max-width: 500px; margin: 0 auto 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--gold); color: var(--dark); padding: 0.9rem 2.5rem; border-radius: 50px; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em; text-decoration: none; cursor: pointer; border: none; transition: all 0.3s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(184,151,90,0.35); }
+  .btn-primary:disabled { background: #c8b07a; cursor: not-allowed; opacity: 0.6; transform: none; box-shadow: none; }
+  .btn-outline { background: transparent; color: var(--cream); padding: 0.9rem 2.5rem; border-radius: 50px; font-weight: 400; font-size: 0.9rem; letter-spacing: 0.05em; text-decoration: none; cursor: pointer; border: 1px solid rgba(255,255,255,0.25); transition: all 0.3s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; animation: bounce 2s infinite; }
+  .hero-scroll::after { content: ''; width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(184,151,90,0.5), transparent); }
+
+  /* STATS BAR */
+  .stats-bar { background: var(--dark2); padding: 2.5rem 4rem; display: flex; justify-content: center; gap: 5rem; flex-wrap: wrap; }
+  .stat-item { text-align: center; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--gold); font-weight: 300; }
+  .stat-label { font-size: 0.78rem; color: rgba(250,247,242,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+  .section-tag { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--dark); line-height: 1.2; margin-bottom: 1.5rem; }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-sub { color: var(--muted); font-size: 0.95rem; line-height: 1.9; max-width: 500px; }
+
+  /* SERVICES */
+  #services { background: var(--cream); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 4rem; }
+  .service-card {
+    background: var(--white); border-radius: 1.5rem;
+    padding: 2.5rem 2rem; position: relative; overflow: hidden;
+    border: 1px solid rgba(184,151,90,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(28,23,18,0.12); }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--gold), var(--gold-light)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { width: 56px; height: 56px; background: rgba(184,151,90,0.1); border-radius: 1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.6rem; }
+  .service-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--dark); margin-bottom: 0.75rem; }
+  .service-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+  .service-duration { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .service-price { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--dark); font-weight: 600; }
+  .service-price span { font-size: 0.85rem; color: var(--muted); font-family: 'DM Sans'; font-weight: 400; }
+
+  /* ABOUT */
+  #about { background: var(--dark); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-img { position: relative; border-radius: 1.5rem; overflow: visible; aspect-ratio: 4/5; background: var(--dark2); }
+  .about-img-inner { width: 100%; height: 100%; border-radius: 1.5rem; overflow: hidden; background: linear-gradient(135deg, #2E2820, #3D3529); display: flex; align-items: center; justify-content: center; }
+  .about-img-inner svg { opacity: 0.25; }
+  .about-badge { position: absolute; bottom: 2rem; right: 0; background: var(--gold); color: var(--dark); padding: 1.5rem; border-radius: 1rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+  .about-badge-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; line-height: 1; }
+  .about-badge-text { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  #about .section-title { color: var(--cream); }
+  #about .section-sub { color: rgba(250,247,242,0.55); }
+  .about-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .about-list li { display: flex; align-items: center; gap: 1rem; color: rgba(250,247,242,0.7); font-size: 0.9rem; }
+  .about-list li::before { content: '✦'; color: var(--gold); font-size: 0.6rem; flex-shrink: 0; }
+
+  /* TEAM */
+  #team { background: var(--cream2); }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 4rem; }
+  .team-card { background: var(--white); border-radius: 1.5rem; overflow: hidden; border: 1px solid rgba(184,151,90,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+  .team-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(28,23,18,0.1); }
+  .team-photo { aspect-ratio: 3/4; background: linear-gradient(135deg, var(--cream2), var(--cream)); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; overflow: hidden; }
+  .team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .team-photo .emoji-placeholder { font-size: 4rem; }
+  .team-photo .cert-badge { position: absolute; top: 1rem; right: 1rem; background: var(--gold); color: var(--dark); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 50px; font-weight: 500; z-index: 1; }
+  .team-info { padding: 1.5rem; }
+  .team-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--dark); margin-bottom: 0.3rem; }
+  .team-role { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .team-spec { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+  /* BOOKING */
+  #booking { background: var(--white); }
+  .booking-wrapper { display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: start; }
+  .booking-form {
+    background: var(--cream); border-radius: 2rem; padding: 2.8rem;
+    border: 1px solid rgba(184,151,90,0.15);
+    box-shadow: 0 20px 60px rgba(28,23,18,0.06);
+  }
+  .form-group { margin-bottom: 1.4rem; }
+  .form-label {
+    display: block; font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.55rem; font-weight: 500;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%; padding: 0.85rem 1.1rem; background: var(--white);
+    border: 1.5px solid rgba(184,151,90,0.15); border-radius: 0.85rem;
+    font-family: 'DM Sans'; font-size: 0.9rem; color: var(--dark);
+    transition: border-color 0.25s, box-shadow 0.25s; outline: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,151,90,0.1);
+  }
+  .form-textarea { resize: vertical; min-height: 90px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .slot-chip {
+    display:inline-flex; align-items:center; gap:0.4rem;
+    padding:0.4rem 0.85rem; border-radius:50px; font-size:0.8rem; font-weight:500;
+    background:rgba(184,151,90,0.12); color:var(--gold-light);
+    border:1px solid rgba(184,151,90,0.25); cursor:pointer; transition:all 0.18s;
+    font-family:'DM Sans';
+  }
+  .slot-chip:hover { background:rgba(226,75,74,0.15); color:#F09595; border-color:rgba(226,75,74,0.3); }
+  .slot-chip .slot-x { font-size:0.75rem; opacity:0.7; }
+  .time-slot {
+    padding: 0.6rem 0.4rem; border-radius: 0.6rem; font-size: 0.8rem;
+    font-family: 'DM Sans'; font-weight: 500; cursor: pointer;
+    border: 1.5px solid rgba(184,151,90,0.2);
+    background: var(--white); color: var(--muted);
+    transition: all 0.18s; text-align: center; line-height: 1.2;
+  }
+  .time-slot:hover:not(.booked) {
+    border-color: var(--gold); color: var(--gold-dark);
+    background: rgba(184,151,90,0.06); transform: translateY(-1px);
+  }
+  .time-slot.selected {
+    background: var(--gold); color: var(--dark); border-color: var(--gold);
+    font-weight: 600; box-shadow: 0 4px 12px rgba(184,151,90,0.3);
+  }
+  .time-slot.booked {
+    background: var(--cream2); color: #ccc; border-color: #e8e3da;
+    cursor: not-allowed; text-decoration: line-through; opacity: 0.55;
+    font-size: 0.72rem;
+  }
+  .booking-info { padding-top: 1rem; }
+  .info-card { background: var(--dark); border-radius: 1.2rem; padding: 1.8rem; margin-bottom: 1.5rem; }
+  .info-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--cream); margin-bottom: 1rem; }
+  .info-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; color: rgba(250,247,242,0.6); font-size: 0.87rem; line-height: 1.6; }
+  .info-item-icon { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--cream2); text-align: center; }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 4rem; text-align: left; }
+  .testi-card { background: var(--white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,151,90,0.1); }
+  .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 0.15em; }
+  .testi-text { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; color: var(--dark); line-height: 1.7; margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-light)); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 500; font-size: 0.85rem; flex-shrink: 0; }
+  .testi-name { font-size: 0.87rem; font-weight: 500; color: var(--dark); }
+  .testi-loc { font-size: 0.78rem; color: var(--muted); }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: rgba(250,247,242,0.5); padding: 5rem 4rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+  .footer-brand .nav-logo { display: block; margin-bottom: 1rem; }
+  .footer-desc { font-size: 0.87rem; line-height: 1.8; margin-bottom: 1.5rem; }
+  .footer-title { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-links a { color: rgba(250,247,242,0.5); text-decoration: none; font-size: 0.87rem; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-copy { font-size: 0.8rem; }
+
+  /* ADMIN PANEL */
+  #admin-panel {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: #0F0D0A; font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+  #admin-panel.open { display: flex; }
+
+  .admin-sidebar {
+    width: 240px; flex-shrink: 0;
+    background: #1A1612; border-right: 1px solid rgba(184,151,90,0.15);
+    display: flex; flex-direction: column; overflow-y: auto;
+  }
+  .admin-logo { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid rgba(184,151,90,0.12); }
+  .admin-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); }
+  .admin-logo-sub { font-size: 0.7rem; color: rgba(255,255,255,0.35); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
+  .admin-nav { padding: 1rem 0; flex: 1; }
+  .admin-nav-section { padding: 0.5rem 1.5rem 0.3rem; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+  .admin-nav-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.7rem 1.5rem; cursor: pointer; transition: all 0.2s;
+    color: rgba(255,255,255,0.5); font-size: 0.87rem; border: none; background: none;
+    width: 100%; text-align: left;
+  }
+  .admin-nav-item:hover { color: var(--cream); background: rgba(184,151,90,0.08); }
+  .admin-nav-item.active { color: var(--gold); background: rgba(184,151,90,0.12); border-right: 2px solid var(--gold); }
+  .admin-nav-item .nav-icon { font-size: 1.1rem; width: 20px; text-align: center; }
+  .admin-footer-nav { padding: 1rem; border-top: 1px solid rgba(184,151,90,0.12); }
+
+  .admin-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .admin-topbar {
+    background: #1A1612; border-bottom: 1px solid rgba(184,151,90,0.12);
+    padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+  }
+  .admin-page-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--cream); }
+  .admin-topbar-right { display: flex; align-items: center; gap: 1.2rem; }
+  .admin-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 500; font-size: 0.85rem; cursor: pointer; }
+  .admin-notif { position: relative; cursor: pointer; color: rgba(255,255,255,0.5); font-size: 1.2rem; }
+  .notif-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+
+  .admin-content { flex: 1; overflow-y: auto; padding: 2rem; }
+  .admin-page { display: none; }
+  .admin-page.active { display: block; }
+
+  /* DASHBOARD */
+  .dash-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+  .dash-card {
+    background: #1A1612; border: 1px solid rgba(184,151,90,0.12); border-radius: 1rem;
+    padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.3rem;
+    transition: border-color 0.2s;
+  }
+  .dash-card:hover { border-color: rgba(184,151,90,0.3); }
+  .dash-card-highlight {
+    background: linear-gradient(135deg, rgba(184,151,90,0.15), rgba(184,151,90,0.05));
+    border-color: rgba(184,151,90,0.35);
+  }
+  .dash-card-icon { font-size: 1.2rem; margin-bottom: 0.4rem; opacity: 0.8; }
+  .dash-card-label { font-size: 0.72rem; color: rgba(255,255,255,0.38); letter-spacing: 0.08em; text-transform: uppercase; }
+  .dash-card-value { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: var(--cream); font-weight: 300; line-height: 1.1; }
+  .dash-card-change { font-size: 0.72rem; margin-top: 0.2rem; }
+  .dash-card-change.up { color: #5DCE8A; }
+  .dash-card-change.down { color: #E24B4A; }
+  .dash-card-change.neutral { color: rgba(255,255,255,0.3); }
+  .dash-grid2 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem; }
+  .admin-table-wrap { background: #1A1612; border: 1px solid rgba(184,151,90,0.12); border-radius: 1rem; padding: 1.5rem; }
+  .admin-table-title { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 1.2rem; display: flex; justify-content: space-between; align-items: center; }
+  .badge { display: inline-block; padding: 0.2rem 0.7rem; border-radius: 50px; font-size: 0.72rem; font-weight: 500; }
+  .badge-gold { background: rgba(184,151,90,0.2); color: var(--gold-light); }
+  .badge-green { background: rgba(61,183,99,0.15); color: #5DCE8A; }
+  .badge-red { background: rgba(226,75,74,0.15); color: #F09595; }
+  .badge-blue { background: rgba(53,138,221,0.15); color: #85B7EB; }
+  table { width: 100%; border-collapse: collapse; }
+  table th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 0.75rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: left; }
+  table td { font-size: 0.85rem; color: rgba(255,255,255,0.65); padding: 0.9rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  table tr:last-child td { border-bottom: none; }
+  table tr:hover td { color: rgba(255,255,255,0.85); background: rgba(184,151,90,0.04); }
+
+  /* ADMIN FORMS */
+  .admin-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .admin-form-group { margin-bottom: 1.2rem; }
+  .admin-form-group.full { grid-column: 1/-1; }
+  .admin-label { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.5rem; }
+  .admin-input, .admin-select, .admin-textarea {
+    width: 100%; padding: 0.75rem 1rem;
+    background: #0F0D0A; border: 1px solid rgba(184,151,90,0.2); border-radius: 0.65rem;
+    color: rgba(255,255,255,0.8); font-family: 'DM Sans'; font-size: 0.87rem; outline: none;
+    transition: border-color 0.3s;
+  }
+  .admin-input:focus, .admin-select:focus, .admin-textarea:focus { border-color: var(--gold); }
+  .admin-select option { background: #1A1612; }
+  .admin-textarea { resize: vertical; min-height: 80px; }
+  .admin-btn { padding: 0.65rem 1.5rem; border-radius: 0.65rem; font-family: 'DM Sans'; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; }
+  .admin-btn-primary { background: var(--gold); color: var(--dark); }
+  .admin-btn-primary:hover { background: var(--gold-light); }
+  .admin-btn-ghost { background: transparent; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1); }
+  .admin-btn-ghost:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
+  .admin-btn-danger { background: rgba(162,45,45,0.3); color: #F09595; border: 1px solid rgba(162,45,45,0.4); }
+  .admin-btn-danger:hover { background: rgba(162,45,45,0.5); }
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cream); font-weight: 300; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #1A1612; border: 1px solid rgba(184,151,90,0.2); border-radius: 1.2rem; padding: 2rem; width: 90%; max-width: 540px; max-height: 85vh; overflow-y: auto; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--cream); }
+  .modal-close { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.3rem; cursor: pointer; line-height: 1; }
+  .modal-close:hover { color: rgba(255,255,255,0.8); }
+
+  /* TOGGLE */
+  .toggle { position: relative; width: 44px; height: 24px; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 50px; cursor: pointer; transition: 0.3s; }
+  .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: rgba(255,255,255,0.5); border-radius: 50%; transition: 0.3s; }
+  .toggle input:checked + .toggle-slider { background: var(--gold); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(20px); background: var(--dark); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* LOGIN */
+  #login-screen { display: none; position: fixed; inset: 0; z-index: 999; background: #0F0D0A; align-items: center; justify-content: center; }
+  #login-screen.open { display: flex; }
+  .login-box { background: #1A1612; border: 1px solid rgba(184,151,90,0.2); border-radius: 1.5rem; padding: 3rem; width: 380px; }
+  .login-logo { text-align: center; margin-bottom: 2rem; }
+  .login-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); }
+  .login-sub { font-size: 0.8rem; color: rgba(255,255,255,0.35); margin-top: 0.3rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .login-err { background: rgba(162,45,45,0.2); border: 1px solid rgba(162,45,45,0.3); border-radius: 0.65rem; padding: 0.75rem 1rem; font-size: 0.82rem; color: #F09595; margin-bottom: 1rem; display: none; }
+
+  .wa-template-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+  @media (max-width: 768px) { .wa-template-grid { grid-template-columns: 1fr; } }
+
+  .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 768px) { .settings-grid { grid-template-columns: 1fr; } }
+
+  /* PHOTO UPLOAD */
+  .photo-upload-area {
+    width: 100%; aspect-ratio: 3/4; max-width: 160px; border-radius: 1rem;
+    border: 2px dashed rgba(184,151,90,0.3); background: #0F0D0A;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem; cursor: pointer; transition: border-color 0.2s; overflow: hidden; position: relative;
+  }
+  .photo-upload-area:hover { border-color: var(--gold); }
+  .photo-upload-area img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .photo-upload-area .upload-hint { font-size: 0.72rem; color: rgba(255,255,255,0.35); text-align: center; padding: 0.5rem; pointer-events: none; }
+  .photo-upload-area .upload-icon { font-size: 1.8rem; opacity: 0.4; pointer-events: none; }
+  .photo-upload-row { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .photo-upload-right { flex: 1; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  /* COLOR CHART */
+  .mini-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
+  .mini-bar { flex: 1; background: rgba(184,151,90,0.25); border-radius: 4px 4px 0 0; transition: background 0.2s; min-height: 4px; }
+  .mini-bar:hover { background: var(--gold) !important; }
+
+  /* Hamburger & bottom nav — hidden by default (desktop), shown on mobile */
+  .hamburger-btn { display: none; }
+  .admin-bottom-nav { display: none; }
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 199; }
+
+  .time-slots-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+  @media (max-width: 768px) { .time-slots-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 480px) { .time-slots-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* MOBILE NAV MENU */
+  .nav-mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 99;
+    background: rgba(28,23,18,0.97); backdrop-filter: blur(12px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-menu a {
+    color: rgba(255,255,255,0.85); text-decoration: none; font-size: 1.5rem;
+    font-family: 'Cormorant Garamond', serif; font-weight: 300; letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+  .nav-mobile-menu a:hover { color: var(--gold); }
+  .nav-hamburger {
+    display: none; flex-direction: column; gap: 5px; background: none;
+    border: none; cursor: pointer; padding: 4px; z-index: 101; position: relative;
+  }
+  .nav-hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: rgba(255,255,255,0.8); border-radius: 2px; transition: all 0.3s;
+  }
+  .nav-close {
+    position: absolute; top: 2rem; right: 1.5rem;
+    background: none; border: none; color: rgba(255,255,255,0.6);
+    font-size: 2rem; cursor: pointer; line-height: 1; padding: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    section { padding: 4.5rem 1.25rem 4rem; }
+    .stats-bar { padding: 2rem 1.25rem; gap: 1.5rem; }
+    .stats-bar .stat-item { min-width: 120px; }
+    /* Services header: stack on mobile */
+    #services > div > div[style*="grid"] { display: flex !important; flex-direction: column !important; gap: 1rem !important; }
+    /* About section fix */
+    #about { padding: 4.5rem 1.25rem; }
+    .about-inner { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+    /* Booking */
+    .booking-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    /* Footer */
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 3.5rem 1.25rem 2rem; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: 0.5rem; }
+    /* Hero */
+    .hero-content { padding: 0 1.25rem; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    .hero-btns a { width: 100%; max-width: 280px; text-align: center; }
+    /* Services grid single column */
+    .services-grid { grid-template-columns: 1fr; }
+    /* Team grid 2 col on mobile */
+    .team-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    /* Testi grid single column */
+    .testi-grid { grid-template-columns: 1fr; }
+    /* Stat num smaller */
+    .stat-num { font-size: 2rem; }
+    /* About badge fix */
+    .about-badge { right: 1rem; }
+
+    /* ===== ADMIN MOBILE ===== */
+    #admin-panel { flex-direction: column; }
+
+    /* Sidebar jadi drawer overlay dari kiri */
+    .admin-sidebar {
+      position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
+      z-index: 200; transition: left 0.3s ease;
+      box-shadow: 4px 0 30px rgba(0,0,0,0.5);
+    }
+    .admin-sidebar.open { left: 0; }
+
+    /* Overlay gelap saat drawer terbuka */
+    .sidebar-overlay.open { display: block; }
+
+    /* Topbar mobile: tampilkan hamburger */
+    .admin-topbar { padding: 0.85rem 1rem; }
+    .hamburger-btn {
+      display: flex !important; flex-direction: column; justify-content: center;
+      gap: 5px; background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger-btn span {
+      display: block; width: 22px; height: 2px;
+      background: rgba(255,255,255,0.7); border-radius: 2px;
+    }
+    .admin-page-title { font-size: 1.1rem; }
+
+    /* Bottom tab bar */
+    .admin-bottom-nav {
+      display: flex !important; position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+      background: #1A1612; border-top: 1px solid rgba(184,151,90,0.2);
+      padding: 0.4rem 0 env(safe-area-inset-bottom, 0.6rem);
+    }
+    .bottom-tab {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: none; border: none; cursor: pointer; padding: 0.5rem 0.2rem;
+      color: rgba(255,255,255,0.4); font-size: 0.58rem; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .bottom-tab .tab-icon { font-size: 1.3rem; line-height: 1; }
+    .bottom-tab.active { color: var(--gold); }
+    .bottom-tab.active .tab-icon { filter: drop-shadow(0 0 4px rgba(184,151,90,0.6)); }
+
+    /* Push content above bottom nav */
+    .admin-content { padding: 1rem; padding-bottom: 5.5rem; }
+
+    /* Dash cards 2 kolom di mobile */
+    .dash-cards { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .dash-card { padding: 1rem; }
+    .dash-card-value { font-size: 1.5rem; }
+    .dash-grid2 { grid-template-columns: 1fr; }
+    .admin-form-grid { grid-template-columns: 1fr; }
+
+    /* Section header wrap */
+    .section-header { flex-wrap: wrap; gap: 0.75rem; }
+    .section-header h2 { font-size: 1.2rem; }
+
+    /* Table scroll horizontal */
+    .admin-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { min-width: 500px; }
+  }
+  @media (max-width: 480px) {
+    .stats-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; justify-items: center; }
+    .team-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 2.5rem; }
+    .login-box { width: calc(100% - 2rem); padding: 2rem 1.5rem; }
+  }
+
+  /* JADWAL TERAPIS */
+  .schedule-modal { max-width: 700px; }
+  .schedule-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid rgba(184,151,90,0.15); }
+  .schedule-avatar { width:48px; height:48px; border-radius:50%; background:rgba(184,151,90,0.15); display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
+  .schedule-therapist-name { font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--cream); }
+  .schedule-therapist-spec { font-size:0.75rem; color:rgba(255,255,255,0.4); margin-top:0.2rem; }
+  .schedule-days-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:0.5rem; margin-bottom:1.5rem; }
+  .schedule-day-btn {
+    display:flex; flex-direction:column; align-items:center; gap:0.3rem;
+    padding:0.6rem 0.3rem; border-radius:0.6rem; font-size:0.7rem; font-weight:500;
+    border:1.5px solid rgba(184,151,90,0.2); background:rgba(255,255,255,0.03);
+    color:rgba(255,255,255,0.45); cursor:pointer; transition:all 0.18s; text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .schedule-day-btn.active { background:rgba(184,151,90,0.18); border-color:var(--gold); color:var(--gold); }
+  .schedule-day-btn .day-dot { width:6px; height:6px; border-radius:50%; background:currentColor; opacity:0; transition:opacity 0.18s; }
+  .schedule-day-btn.active .day-dot { opacity:1; }
+  .schedule-slots-label { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:0.7rem; }
+  .schedule-slots-grid { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1.5rem; }
+  .schedule-slot-btn {
+    padding:0.35rem 0.75rem; border-radius:50px; font-size:0.78rem; font-weight:500;
+    border:1.5px solid rgba(184,151,90,0.2); background:rgba(255,255,255,0.03);
+    color:rgba(255,255,255,0.45); cursor:pointer; transition:all 0.18s; font-family:'DM Sans';
+  }
+  .schedule-slot-btn.active { background:rgba(184,151,90,0.18); border-color:var(--gold); color:var(--gold-light); }
+  .schedule-view-card {
+    background:#1A1612; border:1px solid rgba(184,151,90,0.12); border-radius:0.75rem;
+    overflow:hidden; margin-bottom:1rem;
+  }
+  .schedule-view-row { display:flex; align-items:flex-start; gap:1rem; padding:0.85rem 1rem; border-bottom:1px solid rgba(255,255,255,0.04); }
+  .schedule-view-row:last-child { border-bottom:none; }
+  .schedule-view-day { width:80px; font-size:0.75rem; font-weight:500; color:var(--gold); flex-shrink:0; padding-top:0.1rem; }
+  .schedule-view-slots { display:flex; flex-wrap:wrap; gap:0.3rem; }
+  .schedule-slot-tag {
+    padding:0.2rem 0.55rem; border-radius:50px; font-size:0.72rem;
+    background:rgba(184,151,90,0.12); color:var(--gold-light);
+    border:1px solid rgba(184,151,90,0.2);
+  }
+  .schedule-off { font-size:0.78rem; color:rgba(255,255,255,0.2); font-style:italic; }
+  .schedule-summary { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.5rem; }
+  .schedule-summary-chip {
+    display:flex; align-items:center; gap:0.4rem; padding:0.3rem 0.75rem;
+    background:rgba(184,151,90,0.1); border:1px solid rgba(184,151,90,0.2);
+    border-radius:50px; font-size:0.75rem; color:rgba(255,255,255,0.6);
+  }
+  .schedule-summary-chip.libur { background:rgba(200,60,60,0.08); border-color:rgba(200,60,60,0.2); color:rgba(255,100,100,0.7); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">Serene <span>Touch</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Layanan</a></li>
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#team">Tim</a></li>
+    <li><a href="#testimonials">Testimoni</a></li>
+    <li><a href="#booking">Booking</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openAdmin()">Admin Panel</button>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="openMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <button class="nav-close" onclick="closeMobileMenu()" aria-label="Tutup">✕</button>
+  <a href="#services" onclick="closeMobileMenu()">Layanan</a>
+  <a href="#about" onclick="closeMobileMenu()">Tentang</a>
+  <a href="#team" onclick="closeMobileMenu()">Tim</a>
+  <a href="#testimonials" onclick="closeMobileMenu()">Testimoni</a>
+  <a href="#booking" onclick="closeMobileMenu()">Booking</a>
+  <button class="btn-primary" onclick="closeMobileMenu(); openAdmin();" style="margin-top:1rem; border:none;">Admin Panel</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-tag">✦ Premium Wellness Experience</div>
+    <h1 class="hero-title">Temukan <em>Kedamaian</em><br>Sejati Dalam Sentuhan</h1>
+    <p class="hero-sub">Layanan pijat profesional dengan teknik tradisional dan modern untuk memulihkan tubuh, pikiran, dan jiwa Anda.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary">Pesan Sekarang</a>
+      <a href="#services" class="btn-outline">Lihat Layanan</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">2,400+</div><div class="stat-label">Pelanggan Puas</div></div>
+  <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Terapis Bersertifikat</div></div>
+  <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Tahun Pengalaman</div></div>
+  <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Rating Google</div></div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 1rem;">
+      <div>
+        <div class="section-tag">✦ Layanan Kami</div>
+        <h2 class="section-title">Pilihan <em>Terapi</em> Terbaik<br>Untuk Anda</h2>
+      </div>
+      <p class="section-sub">Setiap sesi dirancang khusus untuk memenuhi kebutuhan unik tubuh dan jiwa Anda, dipandu oleh terapis berpengalaman.</p>
+    </div>
+    <div class="services-grid" id="services-display">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;" class="about-inner">
+  <div class="about-img">
+    <div class="about-img-inner">
+      <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="80" stroke="rgba(184,151,90,0.5)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="50" stroke="rgba(184,151,90,0.3)" stroke-width="1"/>
+        <path d="M100 20 L100 180 M20 100 L180 100" stroke="rgba(184,151,90,0.3)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="10" fill="rgba(184,151,90,0.4)"/>
+        <path d="M60 60 Q100 40 140 60 Q160 100 140 140 Q100 160 60 140 Q40 100 60 60Z" stroke="rgba(184,151,90,0.25)" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+    <div class="about-badge">
+      <div class="about-badge-num">8+</div>
+      <div class="about-badge-text">Tahun Melayani</div>
+    </div>
+  </div>
+  <div>
+    <div class="section-tag" style="color: var(--gold);">✦ Tentang Kami</div>
+    <h2 class="section-title">Dedikasi Penuh Untuk<br><em>Kesehatan Anda</em></h2>
+    <p class="section-sub">Serene Touch didirikan dengan misi sederhana namun mulia: membantu setiap tamu menemukan keseimbangan dan pemulihan melalui sentuhan yang penuh perhatian.</p>
+    <ul class="about-list">
+      <li>Terapis bersertifikat BNSP dengan pelatihan berkelanjutan</li>
+      <li>Menggunakan bahan alami premium berkualitas tinggi</li>
+      <li>Suasana tenang dan higienis untuk kenyamanan tamu</li>
+      <li>Teknik pijat tradisional Jawa, Bali, dan internasional</li>
+      <li>Konsultasi gratis sebelum setiap sesi</li>
+    </ul>
+  </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <div class="section-tag" style="display: inline-block;">✦ Tim Kami</div>
+      <h2 class="section-title">Terapis <em>Profesional</em> Kami</h2>
+    </div>
+    <div class="team-grid" id="team-display"></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="booking-wrapper">
+      <div class="booking-info">
+        <div class="section-tag">✦ Reservasi</div>
+        <h2 class="section-title">Buat <em>Janji</em> Anda<br>Sekarang</h2>
+        <p class="section-sub" style="margin-bottom: 2.5rem;">Pilih layanan dan waktu yang sesuai. Tim kami akan mengonfirmasi dalam 30 menit.</p>
+        <div class="info-card">
+          <div class="info-card-title">Informasi Kontak</div>
+          <div class="info-item"><span class="info-item-icon">📍</span> Jl. Gajahmada No. 45, Semarang Tengah</div>
+          <div class="info-item"><span class="info-item-icon">📞</span> +62 822-1234-5678</div>
+          <div class="info-item" id="info-jam"><span class="info-item-icon">⏰</span>
+            <div>
+              <div>Senin–Jumat: 09:00–21:00</div>
+              <div>Sabtu: 09:00–21:00</div>
+              <div>Minggu: 10:00–19:00</div>
+            </div>
+          </div>
+          <div class="info-item"><span class="info-item-icon">📧</span> hello@serenetouch.id</div>
+        </div>
+      </div>
+      <div class="booking-form">
+        <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--dark); margin-bottom:0.4rem;">Formulir Booking</h3>
+        <p style="font-size:0.82rem; color:var(--muted); margin-bottom:2rem;">Isi data di bawah, kami proses via WhatsApp.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" class="form-input" placeholder="Nama Anda" id="b-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">No. WhatsApp</label>
+            <input type="text" class="form-input" placeholder="+62 8xx-xxxx-xxxx" id="b-phone">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pilih Layanan</label>
+          <select class="form-select" id="b-service">
+            <option value="">-- Pilih Layanan --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pilih Terapis</label>
+          <select class="form-select" id="b-therapist" onchange="updateTimeSlots()">
+            <option value="">-- Pilih Terapis --</option>
+          </select>
+          <p id="b-therapist-sched-note" style="font-size:0.75rem; color:var(--muted); margin-top:0.4rem;">💬 Pesan akan dikirim langsung ke WhatsApp terapis yang dipilih.</p>
+          <p id="b-therapist-days-note" style="font-size:0.75rem; color:var(--gold); margin-top:0.2rem; display:none;"></p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tanggal Kunjungan</label>
+          <input type="date" class="form-input" id="b-date" onchange="updateTimeSlots()">
+        </div>
+
+        <div class="form-group">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:0.75rem;">
+            <label class="form-label" style="margin-bottom:0;">Pilih Jam</label>
+            <span id="b-time-hint" style="font-size:0.72rem; color:var(--gold);"></span>
+          </div>
+          <input type="hidden" id="b-time" value="">
+          <div id="b-time-slots" class="time-slots-grid"></div>
+          <p id="b-time-error" style="display:none; color:#c0392b; font-size:0.8rem; margin-top:0.5rem;">⚠️ Harap pilih jam terlebih dahulu.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Catatan Tambahan <span style="font-weight:400;text-transform:none;letter-spacing:0;color:rgba(122,110,95,0.6);">(opsional)</span></label>
+          <textarea class="form-textarea" placeholder="Kondisi kesehatan khusus, preferensi terapis, dll." id="b-note" style="min-height:80px;"></textarea>
+        </div>
+
+        <button id="b-submit-btn" class="btn-primary" style="width:100%; display:flex; align-items:center; justify-content:center; gap:0.6rem; font-size:0.95rem;" onclick="submitBooking()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pesan via WhatsApp
+        </button>
+        <p id="b-msg" style="text-align:center; margin-top:1rem; font-size:0.85rem; color:var(--gold); display:none;">✅ Booking tersimpan! Mengalihkan ke WhatsApp...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-tag" style="display:block; text-align:center;">✦ Testimoni</div>
+    <h2 class="section-title" style="text-align:center;">Kata Mereka <em>Tentang Kami</em></h2>
+    <div class="testi-grid" id="testi-display"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">Serene <span>Touch</span></div>
+      <p class="footer-desc">Layanan pijat premium yang menghadirkan kedamaian dan pemulihan untuk tubuh, pikiran, dan jiwa Anda di Semarang.</p>
+      <div style="display:flex; gap:0.8rem;">
+        <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(184,151,90,0.15); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:0.9rem; text-decoration:none;">ig</a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(184,151,90,0.15); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:0.9rem; text-decoration:none;">fb</a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(184,151,90,0.15); display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:0.9rem; text-decoration:none;">wa</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-title">Layanan</div>
+      <ul class="footer-links" id="footer-services"></ul>
+    </div>
+    <div>
+      <div class="footer-title">Navigasi</div>
+      <ul class="footer-links">
+        <li><a href="#about">Tentang Kami</a></li>
+        <li><a href="#team">Tim Terapis</a></li>
+        <li><a href="#testimonials">Testimoni</a></li>
+        <li><a href="#booking">Booking</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-title">Jam Operasional</div>
+      <ul class="footer-links">
+        <li><a href="#">Senin–Jumat: 09:00–21:00</a></li>
+        <li><a href="#">Sabtu: 09:00–21:00</a></li>
+        <li><a href="#">Minggu: 10:00–19:00</a></li>
+        <li><a href="#" style="color:var(--gold);">Buka Hari Libur Nasional</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Serene Touch. Hak Cipta Dilindungi.</span>
+    <span style="font-size:0.8rem;">Dibuat dengan ✦ di Semarang</span>
+  </div>
+</footer>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-title">Admin Panel</div>
+      <div class="login-sub">Serene Touch Management</div>
+    </div>
+    <div class="login-err" id="login-err">Username atau password salah.</div>
+    <div style="margin-bottom:1rem;">
+      <label class="admin-label">Username</label>
+      <input type="text" class="admin-input" id="login-user" placeholder="Username" onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label class="admin-label">Password</label>
+      <input type="password" class="admin-input" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+    <button class="admin-btn admin-btn-primary" style="width:100%;" onclick="doLogin()">Masuk</button>
+    
+    <button class="admin-btn admin-btn-ghost" style="width:100%; margin-top:0.8rem;" onclick="closeLogin()">← Kembali ke Website</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin-panel">
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+  <!-- SIDEBAR -->
+  <div class="admin-sidebar" id="admin-sidebar">
+    <div class="admin-logo">
+      <div class="admin-logo-text">Serene Touch</div>
+      <div class="admin-logo-sub">Admin Dashboard</div>
+    </div>
+    <div class="admin-nav">
+      <div class="admin-nav-section">Utama</div>
+      <button class="admin-nav-item active" onclick="switchPage('dashboard', this)"><span class="nav-icon">📊</span> Dashboard</button>
+      <button class="admin-nav-item" onclick="switchPage('bookings', this)"><span class="nav-icon">📅</span> Booking</button>
+      <button class="admin-nav-item" onclick="switchPage('customers', this)"><span class="nav-icon">👥</span> Pelanggan</button>
+      <div class="admin-nav-section">Konten</div>
+      <button class="admin-nav-item" onclick="switchPage('services', this)"><span class="nav-icon">💆</span> Layanan</button>
+      <button class="admin-nav-item" onclick="switchPage('team', this)"><span class="nav-icon">🧑‍⚕️</span> Tim Terapis</button>
+      <button class="admin-nav-item" onclick="switchPage('schedules', this)"><span class="nav-icon">📅</span> Jadwal Terapis</button>
+      <button class="admin-nav-item" onclick="switchPage('testimonials', this)"><span class="nav-icon">💬</span> Testimoni</button>
+      <div class="admin-nav-section">Sistem</div>
+      <button class="admin-nav-item" onclick="switchPage('reports', this)"><span class="nav-icon">📈</span> Laporan</button>
+      <button class="admin-nav-item" onclick="switchPage('settings', this)"><span class="nav-icon">⚙️</span> Pengaturan</button>
+    </div>
+    <div class="admin-footer-nav">
+      <button class="admin-btn admin-btn-ghost" style="width:100%; font-size:0.8rem;" onclick="closeAdmin()">← Lihat Website</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <button class="hamburger-btn" id="hamburger-btn" onclick="toggleSidebar()">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="admin-page-title" id="admin-title">Dashboard</div>
+      </div>
+      <div class="admin-topbar-right">
+        <div class="admin-notif">🔔<div class="notif-dot"></div></div>
+        <div class="admin-avatar">AD</div>
+        <span style="font-size:0.82rem; color:rgba(255,255,255,0.4);">Administrator</span>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- DASHBOARD -->
+      <div class="admin-page active" id="page-dashboard">
+
+        <!-- Greeting + date -->
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--cream); font-weight:300;" id="dash-greeting">Selamat datang</div>
+          <div style="font-size:0.75rem; color:rgba(255,255,255,0.3); margin-top:0.2rem;" id="dash-date"></div>
+        </div>
+
+        <!-- 4 Stat Cards -->
+        <div class="dash-cards">
+          <div class="dash-card">
+            <div class="dash-card-icon">📅</div>
+            <div class="dash-card-label">Booking Hari Ini</div>
+            <div class="dash-card-value" id="stat-booking">0</div>
+            <div class="dash-card-change up" id="stat-booking-sub"></div>
+          </div>
+          <div class="dash-card dash-card-highlight">
+            <div class="dash-card-icon">💰</div>
+            <div class="dash-card-label">Pendapatan Bulan Ini</div>
+            <div class="dash-card-value" id="stat-revenue">Rp 0</div>
+            <div class="dash-card-change up" id="stat-revenue-sub"></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-icon">👥</div>
+            <div class="dash-card-label">Total Pelanggan</div>
+            <div class="dash-card-value" id="stat-customers">0</div>
+            <div class="dash-card-change up" id="stat-customers-sub"></div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-icon">⭐</div>
+            <div class="dash-card-label">Rating</div>
+            <div class="dash-card-value">4.9</div>
+            <div class="dash-card-change up">2,400+ ulasan</div>
+          </div>
+        </div>
+
+        <!-- Bottom row -->
+        <div class="dash-grid2">
+          <div class="admin-table-wrap">
+            <div class="admin-table-title">Booking Terbaru <span class="badge badge-gold">Live</span></div>
+            <table><thead><tr><th>Nama</th><th>Layanan</th><th>Jam</th><th>Status</th></tr></thead>
+            <tbody id="dash-bookings"></tbody></table>
+          </div>
+          <div class="admin-table-wrap">
+            <div class="admin-table-title" style="margin-bottom:1rem;">
+              Pendapatan per Bulan
+              <span style="float:right; font-size:0.72rem; color:rgba(255,255,255,0.3);" id="today-date-label"></span>
+            </div>
+            <div class="mini-chart" id="mini-chart"></div>
+            <div style="display:flex; justify-content:space-between; margin-top:0.4rem;">
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Jan</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Feb</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Mar</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Apr</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Mei</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Jun</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Jul</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Agu</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Sep</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Okt</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Nov</span>
+              <span style="font-size:0.6rem; color:rgba(255,255,255,0.2);">Des</span>
+            </div>
+            <div id="today-total-rev" style="margin-top:0.6rem; font-size:0.78rem; color:var(--gold); font-weight:500;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOKINGS -->
+      <div class="admin-page" id="page-bookings">
+        <div class="section-header">
+          <h2>Manajemen Booking</h2>
+          <button class="admin-btn admin-btn-primary" onclick="openNewBookingModal()">+ Booking Baru</button>
+        </div>
+        <div class="admin-table-wrap">
+          <div class="admin-table-title" style="margin-bottom:1rem;">
+            <input type="text" class="admin-input" placeholder="Cari nama atau layanan..." style="width:280px; padding:0.55rem 1rem; font-size:0.82rem;" id="search-booking" oninput="renderBookings()">
+          </div>
+          <table><thead><tr><th>#</th><th>Nama</th><th>No. HP</th><th>Layanan</th><th>Tanggal</th><th>Jam</th><th>Catatan</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody id="bookings-table"></tbody></table>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS -->
+      <div class="admin-page" id="page-customers">
+        <div class="section-header">
+          <h2>Data Pelanggan</h2>
+          <button class="admin-btn admin-btn-primary" onclick="openModal('modal-customer')">+ Tambah Pelanggan</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table><thead><tr><th>#</th><th>Nama</th><th>No. HP</th><th>Email</th><th>Total Visit</th><th>Total Spend</th><th>Aksi</th></tr></thead>
+          <tbody id="customers-table"></tbody></table>
+        </div>
+      </div>
+
+      <!-- SERVICES ADMIN -->
+      <div class="admin-page" id="page-services">
+        <div class="section-header">
+          <h2>Manajemen Layanan</h2>
+          <button class="admin-btn admin-btn-primary" onclick="openNewServiceModal()">+ Tambah Layanan</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table><thead><tr><th>#</th><th>Nama Layanan</th><th>Durasi</th><th>Harga</th><th>Deskripsi</th><th>Aktif</th><th>Aksi</th></tr></thead>
+          <tbody id="services-table"></tbody></table>
+        </div>
+      </div>
+
+      <!-- TEAM ADMIN -->
+      <div class="admin-page" id="page-team">
+        <div class="section-header">
+          <h2>Manajemen Terapis</h2>
+          <button class="admin-btn admin-btn-primary" onclick="openNewTherapistModal()">+ Tambah Terapis</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table><thead><tr><th>#</th><th>Nama</th><th>Spesialisasi</th><th>Sertifikasi</th><th>Rating</th><th>No. WA</th><th>Jadwal</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody id="team-table"></tbody></table>
+        </div>
+      </div>
+
+      <!-- SCHEDULE OVERVIEW -->
+      <div class="admin-page" id="page-schedules">
+        <div class="section-header">
+          <h2>Jadwal Semua Terapis</h2>
+        </div>
+        <div id="schedules-overview"></div>
+      </div>
+
+      <!-- TESTIMONIALS ADMIN -->
+      <div class="admin-page" id="page-testimonials">
+        <div class="section-header">
+          <h2>Manajemen Testimoni</h2>
+          <button class="admin-btn admin-btn-primary" onclick="openModal('modal-testi')">+ Tambah Testimoni</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table><thead><tr><th>#</th><th>Nama</th><th>Rating</th><th>Isi Testimoni</th><th>Tampil</th><th>Aksi</th></tr></thead>
+          <tbody id="testi-table"></tbody></table>
+        </div>
+      </div>
+
+      <!-- REPORTS -->
+      <div class="admin-page" id="page-reports">
+        <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--cream); margin-bottom:1.5rem;">Laporan & Statistik</h2>
+        <div class="dash-cards">
+          <div class="dash-card"><div class="dash-card-label">Booking Hari Ini</div><div class="dash-card-value" id="r-today">0</div></div>
+          <div class="dash-card"><div class="dash-card-label">Pendapatan Hari Ini</div><div class="dash-card-value" id="r-rev-today">Rp 0</div></div>
+          <div class="dash-card"><div class="dash-card-label">Layanan Terpopuler</div><div class="dash-card-value" style="font-size:1.1rem;" id="r-popular">-</div></div>
+          <div class="dash-card"><div class="dash-card-label">Terapis Terbaik</div><div class="dash-card-value" style="font-size:1.1rem;" id="r-therapist">-</div></div>
+        </div>
+        <div class="admin-table-wrap" style="margin-top:1.5rem;">
+          <div class="admin-table-title">Rekap Layanan Bulan Ini</div>
+          <table><thead><tr><th>Layanan</th><th>Jumlah Booking</th><th>Pendapatan</th><th>% dari Total</th></tr></thead>
+          <tbody id="report-table"></tbody></table>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="admin-page" id="page-settings">
+        <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--cream); margin-bottom:1.5rem;">Pengaturan Sistem</h2>
+        <div class="settings-grid">
+          <div class="admin-table-wrap" style="grid-column:1/-1;">
+            <div class="admin-table-title">Informasi Bisnis & Jam Operasional</div>
+            <div class="admin-form-grid">
+              <div class="admin-form-group"><label class="admin-label">Nama Depan Logo</label><input class="admin-input" value="Serene" id="s-name-first" placeholder="Contoh: Serene"></div>
+              <div class="admin-form-group"><label class="admin-label">Nama Belakang Logo <span style="font-style:italic;opacity:0.6;">(italic)</span></label><input class="admin-input" value="Touch" id="s-name-last" placeholder="Contoh: Touch"></div>
+              <div class="admin-form-group"><label class="admin-label">No. WhatsApp Bisnis</label><input class="admin-input" value="+62 822-1234-5678" id="s-phone" placeholder="+62 8xx-xxxx-xxxx"></div>
+              <div class="admin-form-group full"><label class="admin-label">Alamat</label><input class="admin-input" value="Jl. Gajahmada No. 45, Semarang" id="s-address"></div>
+              <div class="admin-form-group"><label class="admin-label">Email</label><input class="admin-input" value="hello@serenetouch.id" id="s-email"></div>
+              <div></div>
+              <div class="admin-form-group"><label class="admin-label">⏰ Jam Senin – Jumat</label><input class="admin-input" id="s-hours-weekday" value="09:00 – 21:00" placeholder="09:00 – 21:00"></div>
+              <div class="admin-form-group"><label class="admin-label">⏰ Jam Sabtu</label><input class="admin-input" id="s-hours-sat" value="09:00 – 21:00" placeholder="09:00 – 21:00"></div>
+              <div class="admin-form-group"><label class="admin-label">⏰ Jam Minggu</label><input class="admin-input" id="s-hours-sun" value="10:00 – 19:00" placeholder="10:00 – 19:00"></div>
+              <div style="display:flex; align-items:center; gap:1rem; align-self:end; padding-bottom:1.2rem;">
+                <label class="toggle"><input type="checkbox" id="s-holiday" checked><div class="toggle-slider"></div></label>
+                <span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">Buka hari libur nasional</span>
+              </div>
+            </div>
+            <div style="margin-top:0.5rem;">
+              <button class="admin-btn admin-btn-primary" onclick="saveSettings()">💾 Simpan Semua Perubahan</button>
+            </div>
+          </div>
+          <div class="admin-table-wrap">
+            <div class="admin-table-title">Keamanan</div>
+            <div class="admin-form-group"><label class="admin-label">Username Baru</label><input class="admin-input" type="text" placeholder="Username baru"></div>
+            <div class="admin-form-group"><label class="admin-label">Password Baru</label><input class="admin-input" type="password" placeholder="Password baru"></div>
+            <div class="admin-form-group"><label class="admin-label">Konfirmasi Password</label><input class="admin-input" type="password" placeholder="Ulangi password"></div>
+            <button class="admin-btn admin-btn-primary" onclick="changePassword()">Ubah Password</button>
+          </div>
+          <div class="admin-table-wrap">
+            <div class="admin-table-title">Notifikasi</div>
+            <div style="display:flex; flex-direction:column; gap:1rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">Email untuk booking baru</span>
+                <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">WhatsApp konfirmasi</span>
+                <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">Laporan harian otomatis</span>
+                <label class="toggle"><input type="checkbox"><div class="toggle-slider"></div></label>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.85rem; color:rgba(255,255,255,0.6);">Reminder 1 jam sebelum sesi</span>
+                <label class="toggle"><input type="checkbox" checked><div class="toggle-slider"></div></label>
+              </div>
+            </div><!-- end flex column notif -->
+          </div><!-- end admin-table-wrap notif -->
+        </div><!-- end settings-grid -->
+
+        <!-- Full-width sections below grid -->
+          <div class="admin-table-wrap" style="margin-top:1.5rem; border:1px solid rgba(184,151,90,0.2);">
+            <div class="admin-table-title">🕐 Slot Jam Booking</div>
+            <p style="font-size:0.82rem; color:rgba(255,255,255,0.45); margin-bottom:1.2rem; line-height:1.7;">
+              Atur jam yang bisa dipilih pelanggan saat booking. Klik jam untuk menghapus, tambah jam baru, atau gunakan <strong style="color:var(--gold-light);">⚡ Auto</strong> untuk generate otomatis sesuai jam operasional.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.2rem;" id="slot-manager-list"></div>
+            <div style="display:flex; gap:0.8rem; align-items:center; flex-wrap:wrap;">
+              <input class="admin-input" id="s-new-slot" type="time" style="width:130px;" placeholder="HH:MM">
+              <button class="admin-btn admin-btn-primary" onclick="addTimeSlot()">+ Tambah Jam</button>
+              <button class="admin-btn admin-btn-ghost" onclick="resetTimeSlots()">↺ Reset Default</button>
+              <button class="admin-btn" style="background:rgba(184,151,90,0.15);color:var(--gold-light);border:1px solid rgba(184,151,90,0.3);" onclick="generateSlotsFromHours()">⚡ Auto dari Jam Operasional</button>
+            </div>
+          </div><!-- end slot jam wrap -->
+          <div class="admin-table-wrap" style="margin-top:1.5rem; border:1px solid rgba(184,151,90,0.25);">
+            <div class="admin-table-title">💬 Template Pesan WhatsApp</div>
+            <p style="font-size:0.82rem; color:rgba(255,255,255,0.45); margin-bottom:1rem; line-height:1.7;">
+              Gunakan variabel berikut — akan otomatis diganti saat pesanan masuk:
+              <span style="color:var(--gold);">{{nama}}</span> ·
+              <span style="color:var(--gold);">{{layanan}}</span> ·
+              <span style="color:var(--gold);">{{terapis}}</span> ·
+              <span style="color:var(--gold);">{{tanggal}}</span> ·
+              <span style="color:var(--gold);">{{jam}}</span> ·
+              <span style="color:var(--gold);">{{hp}}</span> ·
+              <span style="color:var(--gold);">{{catatan}}</span> ·
+              <span style="color:var(--gold);">{{bisnis}}</span>
+            </p>
+            <div class="wa-template-grid">
+              <div>
+                <label class="admin-label" style="margin-bottom:0.5rem;">Template Pesan</label>
+                <textarea class="admin-textarea" id="s-wa-template" style="min-height:200px; font-size:0.83rem; font-family:monospace; line-height:1.6;"></textarea>
+                <div style="display:flex; gap:0.8rem; margin-top:0.8rem; flex-wrap:wrap;">
+                  <button class="admin-btn admin-btn-primary" onclick="saveWaTemplate()">💾 Simpan Template</button>
+                  <button class="admin-btn admin-btn-ghost" onclick="resetWaTemplate()">↺ Reset Default</button>
+                  <button class="admin-btn admin-btn-ghost" onclick="updateWaPreview()">👁 Preview</button>
+                </div>
+              </div>
+              <div>
+                <label class="admin-label" style="margin-bottom:0.5rem;">Preview Pesan</label>
+                <div id="wa-preview" style="background:#0F0D0A; border:1px solid rgba(184,151,90,0.15); border-radius:0.65rem; padding:1rem; font-size:0.83rem; color:rgba(255,255,255,0.7); white-space:pre-wrap; line-height:1.7; min-height:200px; font-family:monospace;"></div>
+              </div>
+            </div>
+          </div><!-- end WA template wrap -->
+          <div class="admin-table-wrap" style="margin-top:1.5rem; border:1px solid rgba(226,75,74,0.25);">
+            <div class="admin-table-title" style="color:#F09595;">⚠️ Reset Data</div>
+            <p style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin-bottom:1rem;">Hapus semua data tersimpan dan kembalikan ke data awal (demo). Tindakan ini tidak dapat dibatalkan.</p>
+            <button class="admin-btn" style="background:rgba(226,75,74,0.15);color:#F09595;border:1px solid rgba(226,75,74,0.3);" onclick="resetAllData()">🗑 Reset ke Data Default</button>
+          </div><!-- end reset wrap -->
+      </div><!-- end page-settings -->
+
+    </div><!-- end admin-content -->
+  </div><!-- end admin-main -->
+
+  <!-- BOTTOM NAV (mobile only) -->
+  <div class="admin-bottom-nav" id="admin-bottom-nav">
+    <button class="bottom-tab active" onclick="switchPageMobile('dashboard', this)" data-page="dashboard">
+      <span class="tab-icon">📊</span>Dashboard
+    </button>
+    <button class="bottom-tab" onclick="switchPageMobile('bookings', this)" data-page="bookings">
+      <span class="tab-icon">📅</span>Booking
+    </button>
+    <button class="bottom-tab" onclick="switchPageMobile('customers', this)" data-page="customers">
+      <span class="tab-icon">👥</span>Pelanggan
+    </button>
+    <button class="bottom-tab" onclick="switchPageMobile('services', this)" data-page="services">
+      <span class="tab-icon">💆</span>Layanan
+    </button>
+    <button class="bottom-tab" onclick="toggleSidebar()">
+      <span class="tab-icon">☰</span>Lainnya
+    </button>
+  </div>
+
+</div><!-- end admin-panel -->
+
+<!-- MODALS -->
+<!-- Booking Modal -->
+<div class="modal-overlay" id="modal-booking">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Tambah Booking Baru</div><button class="modal-close" onclick="closeModal('modal-booking')">✕</button></div>
+    <div class="admin-form-grid">
+      <div class="admin-form-group"><label class="admin-label">Nama Pelanggan</label><input class="admin-input" id="mb-name" placeholder="Nama lengkap"></div>
+      <div class="admin-form-group"><label class="admin-label">No. WhatsApp</label><input class="admin-input" id="mb-phone" placeholder="+62..."></div>
+      <div class="admin-form-group"><label class="admin-label">Layanan</label>
+        <select class="admin-select" id="mb-service"></select>
+      </div>
+      <div class="admin-form-group"><label class="admin-label">Terapis</label>
+        <select class="admin-select" id="mb-therapist"></select>
+      </div>
+      <div class="admin-form-group"><label class="admin-label">Tanggal</label><input class="admin-input" type="date" id="mb-date"></div>
+      <div class="admin-form-group"><label class="admin-label">Jam</label>
+        <select class="admin-select" id="mb-time">
+          <option value="09:00">09:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option><option value="19:00">19:00</option><option value="20:00">20:00</option>
+        </select>
+      </div>
+      <div class="admin-form-group full"><label class="admin-label">Status</label>
+        <select class="admin-select" id="mb-status">
+          <option value="menunggu">Menunggu</option>
+          <option value="dikonfirmasi">Dikonfirmasi</option>
+          <option value="selesai">Selesai</option>
+          <option value="dibatalkan">Dibatalkan</option>
+        </select>
+      </div>
+      <div class="admin-form-group full"><label class="admin-label">Catatan</label><textarea class="admin-textarea" id="mb-note" placeholder="Catatan khusus..."></textarea></div>
+    </div>
+    <div style="display:flex; gap:0.8rem; justify-content:flex-end; margin-top:1rem;">
+      <button class="admin-btn admin-btn-ghost" onclick="closeModal('modal-booking')">Batal</button>
+      <button class="admin-btn admin-btn-primary" onclick="saveBooking()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Service Modal -->
+<div class="modal-overlay" id="modal-service">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Tambah Layanan</div><button class="modal-close" onclick="closeModal('modal-service')">✕</button></div>
+    <div class="admin-form-grid">
+      <div class="admin-form-group full"><label class="admin-label">Nama Layanan</label><input class="admin-input" id="ms-name" placeholder="Contoh: Swedish Massage"></div>
+      <div class="admin-form-group"><label class="admin-label">Durasi (menit)</label><input class="admin-input" id="ms-duration" type="number" placeholder="60"></div>
+      <div class="admin-form-group"><label class="admin-label">Harga (Rp)</label><input class="admin-input" id="ms-price" type="number" placeholder="150000"></div>
+      <div class="admin-form-group full"><label class="admin-label">Deskripsi</label><textarea class="admin-textarea" id="ms-desc" placeholder="Deskripsi layanan..."></textarea></div>
+      <div class="admin-form-group"><label class="admin-label">Ikon Emoji</label><input class="admin-input" id="ms-icon" placeholder="💆"></div>
+      <div class="admin-form-group"><label class="admin-label">Status</label>
+        <select class="admin-select" id="ms-status"><option value="1">Aktif</option><option value="0">Nonaktif</option></select>
+      </div>
+    </div>
+    <div style="display:flex; gap:0.8rem; justify-content:flex-end; margin-top:1rem;">
+      <button class="admin-btn admin-btn-ghost" onclick="closeModal('modal-service')">Batal</button>
+      <button class="admin-btn admin-btn-primary" onclick="saveService()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Therapist Modal -->
+<div class="modal-overlay" id="modal-therapist">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Tambah Terapis</div><button class="modal-close" onclick="closeModal('modal-therapist')">✕</button></div>
+    <div class="photo-upload-row" style="margin-bottom:1.2rem;">
+      <div>
+        <label class="admin-label" style="margin-bottom:0.5rem;">Foto / Stiker</label>
+        <div class="photo-upload-area" id="mt-photo-area" onclick="document.getElementById('mt-photo-input').click()" title="Klik untuk upload foto">
+          <span class="upload-icon">📷</span>
+          <span class="upload-hint">Klik upload<br>JPG / PNG / GIF</span>
+        </div>
+        <input type="file" id="mt-photo-input" accept="image/*" style="display:none" onchange="handleTherapistPhoto(this)">
+        <button class="admin-btn admin-btn-ghost" style="width:100%;font-size:0.72rem;margin-top:0.5rem;padding:0.4rem;" onclick="clearTherapistPhoto()">✕ Hapus Foto</button>
+        <input type="hidden" id="mt-photo-data" value="">
+      </div>
+      <div class="photo-upload-right">
+        <div class="admin-form-grid" style="grid-template-columns:1fr;">
+          <div class="admin-form-group"><label class="admin-label">Nama Lengkap</label><input class="admin-input" id="mt-name" placeholder="Nama terapis"></div>
+          <div class="admin-form-group"><label class="admin-label">Spesialisasi</label><input class="admin-input" id="mt-spec" placeholder="Contoh: Traditional Massage, Shiatsu"></div>
+          <div class="admin-form-group"><label class="admin-label">Ikon Emoji <span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:0.5;">(jika tanpa foto)</span></label><input class="admin-input" id="mt-emoji" placeholder="👩"></div>
+        </div>
+      </div>
+    </div>
+    <div class="admin-form-grid">
+      <div class="admin-form-group"><label class="admin-label">Sertifikasi</label><input class="admin-input" id="mt-cert" placeholder="BNSP, etc."></div>
+      <div class="admin-form-group"><label class="admin-label">Pengalaman (tahun)</label><input class="admin-input" id="mt-exp" type="number" placeholder="3"></div>
+      <div class="admin-form-group"><label class="admin-label">No. WhatsApp Pribadi</label><input class="admin-input" id="mt-wa" placeholder="+62 8xx-xxxx-xxxx" type="tel"></div>
+      <div class="admin-form-group"><label class="admin-label">Status</label>
+        <select class="admin-select" id="mt-status"><option value="aktif">Aktif</option><option value="cuti">Cuti</option><option value="nonaktif">Nonaktif</option></select>
+      </div>
+    </div>
+    <div style="display:flex; gap:0.8rem; justify-content:flex-end; margin-top:1rem;">
+      <button class="admin-btn admin-btn-ghost" onclick="closeModal('modal-therapist')">Batal</button>
+      <button class="admin-btn admin-btn-primary" onclick="saveTherapist()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Therapist Schedule Modal -->
+<div class="modal-overlay" id="modal-schedule">
+  <div class="modal schedule-modal">
+    <div class="modal-header">
+      <div class="modal-title">Jadwal Kerja Terapis</div>
+      <button class="modal-close" onclick="closeModal('modal-schedule')">✕</button>
+    </div>
+    <div class="schedule-header" id="sched-header">
+      <div class="schedule-avatar" id="sched-avatar">👤</div>
+      <div>
+        <div class="schedule-therapist-name" id="sched-name">-</div>
+        <div class="schedule-therapist-spec" id="sched-spec">-</div>
+      </div>
+    </div>
+
+    <!-- Pilih Hari -->
+    <div class="schedule-slots-label">Hari Kerja <span style="color:rgba(255,255,255,0.25);font-style:italic;text-transform:none;letter-spacing:0;">(klik untuk aktifkan/nonaktifkan)</span></div>
+    <div class="schedule-days-grid" id="sched-days-grid">
+      <button type="button" class="schedule-day-btn" data-day="0" onclick="toggleSchedDay(0)">Min<div class="day-dot"></div></button>
+      <button type="button" class="schedule-day-btn" data-day="1" onclick="toggleSchedDay(1)">Sen<div class="day-dot"></div></button>
+      <button type="button" class="schedule-day-btn" data-day="2" onclick="toggleSchedDay(2)">Sel<div class="day-dot"></div></button>
+      <button type="button" class="schedule-day-btn" data-day="3" onclick="toggleSchedDay(3)">Rab<div class="day-dot"></div></button>
+      <button type="button" class="schedule-day-btn" data-day="4" onclick="toggleSchedDay(4)">Kam<div class="day-dot"></div></button>
+      <button type="button" class="schedule-day-btn" data-day="5" onclick="toggleSchedDay(5)">Jum<div class="day-dot"></div></button>
+      <button type="button" class="schedule-day-btn" data-day="6" onclick="toggleSchedDay(6)">Sab<div class="day-dot"></div></button>
+    </div>
+
+    <!-- Pilih Jam -->
+    <div class="schedule-slots-label">Jam Tersedia <span style="color:rgba(255,255,255,0.25);font-style:italic;text-transform:none;letter-spacing:0;">(klik untuk pilih/hapus)</span></div>
+    <div class="schedule-slots-grid" id="sched-slots-grid"></div>
+
+    <div style="display:flex; gap:0.8rem; justify-content:flex-end; margin-top:1rem;">
+      <button class="admin-btn admin-btn-ghost" onclick="closeModal('modal-schedule')">Batal</button>
+      <button class="admin-btn admin-btn-primary" onclick="saveSchedule()">💾 Simpan Jadwal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Modal -->
+<div class="modal-overlay" id="modal-customer">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Tambah Pelanggan</div><button class="modal-close" onclick="closeModal('modal-customer')">✕</button></div>
+    <div class="admin-form-grid">
+      <div class="admin-form-group full"><label class="admin-label">Nama Lengkap</label><input class="admin-input" id="mc-name" placeholder="Nama pelanggan"></div>
+      <div class="admin-form-group"><label class="admin-label">No. WhatsApp</label><input class="admin-input" id="mc-phone" placeholder="+62..."></div>
+      <div class="admin-form-group"><label class="admin-label">Email</label><input class="admin-input" id="mc-email" placeholder="email@mail.com"></div>
+    </div>
+    <div style="display:flex; gap:0.8rem; justify-content:flex-end; margin-top:1rem;">
+      <button class="admin-btn admin-btn-ghost" onclick="closeModal('modal-customer')">Batal</button>
+      <button class="admin-btn admin-btn-primary" onclick="saveCustomer()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Testi Modal -->
+<div class="modal-overlay" id="modal-testi">
+  <div class="modal">
+    <div class="modal-header"><div class="modal-title">Tambah Testimoni</div><button class="modal-close" onclick="closeModal('modal-testi')">✕</button></div>
+    <div class="admin-form-grid">
+      <div class="admin-form-group full"><label class="admin-label">Nama</label><input class="admin-input" id="mte-name" placeholder="Nama pelanggan"></div>
+      <div class="admin-form-group"><label class="admin-label">Lokasi</label><input class="admin-input" id="mte-loc" placeholder="Semarang"></div>
+      <div class="admin-form-group"><label class="admin-label">Rating (1-5)</label><input class="admin-input" id="mte-rating" type="number" min="1" max="5" placeholder="5"></div>
+      <div class="admin-form-group full"><label class="admin-label">Isi Testimoni</label><textarea class="admin-textarea" id="mte-text" placeholder="Testimoni..."></textarea></div>
+    </div>
+    <div style="display:flex; gap:0.8rem; justify-content:flex-end; margin-top:1rem;">
+      <button class="admin-btn admin-btn-ghost" onclick="closeModal('modal-testi')">Batal</button>
+      <button class="admin-btn admin-btn-primary" onclick="saveTestimoni()">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== LOCALSTORAGE PERSISTENCE ==========
+const STORAGE_KEY = 'serenetouch_db';
+const STORAGE_IDS  = 'serenetouch_ids';
+const STORAGE_CFG  = 'serenetouch_settings';
+
+function saveDB() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(DB)); } catch(e) {}
+}
+function saveIds() {
+  try { localStorage.setItem(STORAGE_IDS, JSON.stringify(nextId)); } catch(e) {}
+}
+function saveCfg() {
+  try { localStorage.setItem(STORAGE_CFG, JSON.stringify(SETTINGS)); } catch(e) {}
+}
+function persist() { saveDB(); saveIds(); }
+
+// ========== DATA STORE ==========
+let DB = {
+  services: [
+    { id:1, name:'Pijat Tradisional Jawa', duration:60, price:120000, desc:'Teknik pijat warisan leluhur dengan sentuhan lembut yang meredakan ketegangan otot dan melancarkan aliran darah.', icon:'🌿', active:true },
+    { id:2, name:'Balinese Massage', duration:90, price:200000, desc:'Perpaduan teknik Bali dengan minyak esensial pilihan untuk relaksasi mendalam dan keseimbangan energi.', icon:'🌺', active:true },
+    { id:3, name:'Deep Tissue Massage', duration:60, price:180000, desc:'Teknik khusus untuk mengatasi nyeri otot kronis, ketegangan bahu, dan cedera ringan.', icon:'💪', active:true },
+    { id:4, name:'Aromatherapy Massage', duration:90, price:230000, desc:'Kombinasi pijat lembut dengan minyak aromaterapi premium yang menenangkan pikiran dan tubuh.', icon:'🌸', active:true },
+    { id:5, name:'Hot Stone Massage', duration:75, price:250000, desc:'Batu vulkanik panas digunakan untuk melonggarkan otot dan meningkatkan sirkulasi darah secara alami.', icon:'🪨', active:true },
+    { id:6, name:'Reflexology Kaki', duration:45, price:90000, desc:'Pijat titik refleksi telapak kaki yang menghubungkan organ-organ tubuh untuk pemulihan holistik.', icon:'👣', active:true },
+  ],
+  team: [
+    { id:1, name:'Sari Dewi', spec:'Traditional & Balinese Massage', cert:'BNSP', exp:7, emoji:'👩', status:'aktif', rating:4.9, wa:'', schedule:{ days:[1,2,3,4,5], slots:['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00'] } },
+    { id:2, name:'Budi Santoso', spec:'Deep Tissue & Sports Massage', cert:'BNSP', exp:5, emoji:'👨', status:'aktif', rating:4.8, wa:'', schedule:{ days:[1,2,3,4,5,6], slots:['10:00','11:00','13:00','14:00','15:00','16:00','17:00','19:00'] } },
+    { id:3, name:'Ratna Indah', spec:'Aromatherapy & Hot Stone', cert:'BNSP', exp:6, emoji:'👩', status:'aktif', rating:4.9, wa:'', schedule:{ days:[0,2,3,4,5,6], slots:['09:00','10:00','11:00','14:00','15:00','16:00','19:00','20:00'] } },
+    { id:4, name:'Hendra Putra', spec:'Reflexology & Traditional', cert:'BNSP', exp:4, emoji:'👨', status:'aktif', rating:4.7, wa:'', schedule:{ days:[1,3,5,6], slots:['13:00','14:00','15:00','16:00','17:00','19:00','20:00'] } },
+  ],
+  testimonials: [
+    { id:1, name:'Anita Rahma', loc:'Semarang', rating:5, text:'Luar biasa! Pijat Balinese-nya benar-benar membuat saya merasa segar kembali setelah seminggu kerja keras.', show:true },
+    { id:2, name:'Bpk. Agus Wirawan', loc:'Ungaran', rating:5, text:'Sudah 3 tahun jadi pelanggan setia. Terapis di sini profesional dan tempatnya selalu bersih.', show:true },
+    { id:3, name:'Maya Putri', loc:'Semarang', rating:5, text:'Hot stone massage di sini terbaik yang pernah saya coba. Dijamin ketagihan!', show:true },
+    { id:4, name:'Drs. Hendro', loc:'Demak', rating:5, text:'Nyeri punggung saya yang sudah lama hilang setelah beberapa sesi deep tissue. Terima kasih!', show:true },
+    { id:5, name:'Fitri Handayani', loc:'Kendal', rating:5, text:'Pelayanannya ramah, harga terjangkau. Sangat rekomendasi untuk siapapun yang butuh relaksasi.', show:true },
+    { id:6, name:'Wahyu Setiawan', loc:'Semarang', rating:4, text:'Tempatnya nyaman dan bersih. Terapis sangat paham kebutuhan pelanggan.', show:true },
+  ],
+  bookings: [
+    { id:1, name:'Anita Rahma', phone:'082211223344', service:'Balinese Massage', therapist:'Sari Dewi', date:'2025-05-10', time:'10:00', status:'dikonfirmasi', note:'' },
+    { id:2, name:'Budi Santoso', phone:'085312345678', service:'Deep Tissue Massage', therapist:'Budi Santoso', date:'2025-05-10', time:'14:00', status:'menunggu', note:'' },
+    { id:3, name:'Citra Lestari', phone:'081234567890', service:'Aromatherapy Massage', therapist:'Ratna Indah', date:'2025-05-09', time:'11:00', status:'selesai', note:'' },
+    { id:4, name:'David Kurniawan', phone:'087812345678', service:'Reflexology Kaki', therapist:'Hendra Putra', date:'2025-05-08', time:'16:00', status:'selesai', note:'' },
+    { id:5, name:'Eka Pratiwi', phone:'082398765432', service:'Hot Stone Massage', therapist:'Sari Dewi', date:'2025-05-11', time:'09:00', status:'menunggu', note:'' },
+  ],
+  customers: [
+    { id:1, name:'Anita Rahma', phone:'082211223344', email:'anita@email.com', visits:8, spend:1600000 },
+    { id:2, name:'Budi Santoso', phone:'085312345678', email:'budi@email.com', visits:5, spend:900000 },
+    { id:3, name:'Citra Lestari', phone:'081234567890', email:'citra@email.com', visits:12, spend:2400000 },
+    { id:4, name:'David Kurniawan', phone:'087812345678', email:'david@email.com', visits:3, spend:540000 },
+  ]
+};
+let nextId = { booking: 6, service: 7, team: 5, testi: 7, customer: 5 };
+
+// Restore saved data from localStorage (overrides defaults above)
+(function loadSaved() {
+  try {
+    const savedDB = localStorage.getItem(STORAGE_KEY);
+    if (savedDB) DB = JSON.parse(savedDB);
+  } catch(e) {}
+  try {
+    const savedIds = localStorage.getItem(STORAGE_IDS);
+    if (savedIds) nextId = JSON.parse(savedIds);
+  } catch(e) {}
+  // Migrasi: pastikan setiap terapis punya field schedule (untuk data lama yang belum punya)
+  const DEFAULT_SCHED_DAYS = [1,2,3,4,5];
+  DB.team.forEach(t => {
+    if (!t.schedule || typeof t.schedule !== 'object') {
+      t.schedule = { days: [...DEFAULT_SCHED_DAYS], slots: [] };
+    }
+    if (!Array.isArray(t.schedule.days)) t.schedule.days = [...DEFAULT_SCHED_DAYS];
+    if (!Array.isArray(t.schedule.slots)) t.schedule.slots = [];
+    // Jika slots kosong, isi dengan default slots (akan diisi ulang setelah SETTINGS loaded)
+  });
+})();
+
+// ========== RENDER WEBSITE ==========
+function renderWebsite() {
+  // Services on site
+  const sc = document.getElementById('services-display');
+  sc.innerHTML = DB.services.filter(s => s.active).map(s => `
+    <div class="service-card">
+      <div class="service-icon">${s.icon}</div>
+      <div class="service-name">${s.name}</div>
+      <div class="service-desc">${s.desc}</div>
+      <div class="service-duration">⏱ ${s.duration} Menit</div>
+      <div class="service-price">Rp ${s.price.toLocaleString('id-ID')} <span>/ sesi</span></div>
+    </div>`).join('');
+
+  // Footer services
+  document.getElementById('footer-services').innerHTML = DB.services.map(s => `<li><a href="#services">${s.name}</a></li>`).join('');
+
+  // Booking select - layanan
+  const bs = document.getElementById('b-service');
+  bs.innerHTML = '<option value="">-- Pilih Layanan --</option>' + DB.services.filter(s=>s.active).map(s=>`<option value="${s.name}">${s.name} – Rp ${s.price.toLocaleString('id-ID')}</option>`).join('');
+
+  // Booking select - terapis
+  const bt = document.getElementById('b-therapist');
+  if (bt) {
+    const activeTherapists = DB.team.filter(t => t.status === 'aktif');
+    bt.innerHTML = '<option value="">-- Pilih Terapis --</option>' +
+      activeTherapists.map(t => `<option value="${t.id}" data-wa="${t.wa || ''}">${t.emoji} ${t.name} · ${t.spec.split(',')[0]}</option>`).join('');
+  }
+
+  // Team
+  const HARI_SHORT = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  document.getElementById('team-display').innerHTML = DB.team.filter(t=>t.status==='aktif').map(t => {
+    const sched = t.schedule || { days:[], slots:[] };
+    const hariAktif = sched.days && sched.days.length
+      ? sched.days.map(d => `<span style="display:inline-block;padding:0.15rem 0.45rem;background:rgba(184,151,90,0.12);border:1px solid rgba(184,151,90,0.2);border-radius:50px;font-size:0.65rem;color:var(--gold-light);margin:0.1rem;">${HARI_SHORT[d]}</span>`).join('')
+      : '<span style="font-size:0.72rem;color:var(--muted);">Hubungi kami</span>';
+    return `
+    <div class="team-card">
+      <div class="team-photo">
+        ${t.photo ? `<img src="${t.photo}" alt="${t.name}" loading="lazy">` : `<span class="emoji-placeholder">${t.emoji}</span>`}
+        <span class="cert-badge">${t.cert}</span>
+      </div>
+      <div class="team-info">
+        <div class="team-name">${t.name}</div>
+        <div class="team-role">${t.spec}</div>
+        <div class="team-spec">${t.exp} tahun pengalaman · Rating ${t.rating}★</div>
+        <div style="margin-top:0.6rem;">${hariAktif}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Testimonials
+  document.getElementById('testi-display').innerHTML = DB.testimonials.filter(t=>t.show).slice(0,6).map(t => `
+    <div class="testi-card">
+      <div class="testi-stars">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</div>
+      <div class="testi-text">"${t.text}"</div>
+      <div class="testi-author">
+        <div class="testi-avatar">${t.name ? t.name[0].toUpperCase() : '?'}</div>
+        <div><div class="testi-name">${t.name}</div><div class="testi-loc">${t.loc}</div></div>
+      </div>
+    </div>`).join('');
+}
+
+// ========== RENDER ADMIN ==========
+function renderAdmin() {
+  const now = new Date();
+  // Tanggal lokal WIB
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const thisMonth = todayStr.slice(0, 7);
+
+  // Greeting & date
+  const jam = now.getHours();
+  const salam = jam < 11 ? 'Selamat Pagi' : jam < 15 ? 'Selamat Siang' : jam < 18 ? 'Selamat Sore' : 'Selamat Malam';
+  const hariArr = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const bulanArr = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const greetEl = document.getElementById('dash-greeting');
+  const dateEl = document.getElementById('dash-date');
+  if (greetEl) greetEl.textContent = `${salam}, Admin 👋`;
+  if (dateEl) dateEl.textContent = `${hariArr[now.getDay()]}, ${now.getDate()} ${bulanArr[now.getMonth()]} ${now.getFullYear()}`;
+
+  // Booking hari ini
+  const todayBookings = DB.bookings.filter(b => b.date === todayStr);
+  const todayActive = todayBookings.filter(b => b.status !== 'dibatalkan');
+  const statBookingEl = document.getElementById('stat-booking');
+  if (statBookingEl) statBookingEl.textContent = todayActive.length;
+  const pendingCount = todayBookings.filter(b => b.status === 'menunggu').length;
+  const bookingSub = document.getElementById('stat-booking-sub');
+  if (bookingSub) {
+    bookingSub.textContent = pendingCount > 0 ? `${pendingCount} menunggu konfirmasi` : 'Semua terkonfirmasi';
+    bookingSub.className = 'dash-card-change ' + (pendingCount > 0 ? 'neutral' : 'up');
+  }
+
+  // Pendapatan bulan ini — hanya hitung yang sudah selesai
+  const monthRev = DB.bookings.filter(b => b.date && b.date.startsWith(thisMonth) && b.status === 'selesai').reduce((sum, b) => {
+    const svc = DB.services.find(s => s.name === b.service);
+    return sum + (svc ? svc.price : 0);
+  }, 0);
+  const statRevEl = document.getElementById('stat-revenue');
+  if (statRevEl) statRevEl.textContent = 'Rp ' + monthRev.toLocaleString('id-ID');
+  // Sub: pendapatan hari ini (hanya selesai)
+  const todayRev = todayBookings.filter(b => b.status === 'selesai').reduce((sum, b) => {
+    const svc = DB.services.find(s => s.name === b.service);
+    return sum + (svc ? svc.price : 0);
+  }, 0);
+  const revSub = document.getElementById('stat-revenue-sub');
+  if (revSub) revSub.textContent = `Hari ini: Rp ${todayRev.toLocaleString('id-ID')}`;
+
+  // Total pelanggan
+  const statCustEl = document.getElementById('stat-customers');
+  if (statCustEl) statCustEl.textContent = DB.customers.length;
+  const newToday = DB.customers.filter(c => c.visits === 1).length;
+  const custSub = document.getElementById('stat-customers-sub');
+  if (custSub) { custSub.textContent = `${newToday} pelanggan baru`; custSub.className = 'dash-card-change neutral'; }
+
+  // Dashboard bookings terbaru (tampilkan yang hari ini dulu, lalu lainnya)
+  const sortedBookings = [...[...todayBookings].reverse(), ...[...DB.bookings.filter(b => b.date !== todayStr)].reverse()].slice(0, 5);
+  const dashBookingsEl = document.getElementById('dash-bookings');
+  if (dashBookingsEl) dashBookingsEl.innerHTML = sortedBookings.map(b => `
+    <tr><td>${b.name}</td><td style="font-size:0.8rem;">${b.service.split(' ').slice(0,2).join(' ')}</td><td>${b.time||'-'}</td><td>${statusBadge(b.status)}</td></tr>`).join('') || '<tr><td colspan="4" style="text-align:center;opacity:0.4;padding:1rem;">Belum ada booking hari ini</td></tr>';
+
+  // Mini chart — pendapatan per bulan (12 bulan tahun ini)
+  const thisYear = now.getFullYear();
+  const monthlyRev = Array.from({length: 12}, (_, mi) => {
+    const mStr = `${thisYear}-${String(mi+1).padStart(2,'0')}`;
+    return DB.bookings.filter(b => b.date && b.date.startsWith(mStr) && b.status !== 'dibatalkan').reduce((sum, b) => {
+      const svc = DB.services.find(s => s.name === b.service);
+      return sum + (svc ? svc.price : 0);
+    }, 0);
+  });
+  const maxMonthRev = Math.max(...monthlyRev, 1);
+  const bulanLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const miniChartEl = document.getElementById('mini-chart');
+  if (miniChartEl) miniChartEl.innerHTML = monthlyRev.map((v, i) => {
+    const pct = Math.round((v / maxMonthRev) * 100);
+    const label = 'Rp ' + v.toLocaleString('id-ID');
+    const isCurrentMonth = (i === now.getMonth());
+    const bg = isCurrentMonth ? 'var(--gold-light)' : pct > 0 ? 'var(--gold)' : 'rgba(184,151,90,0.12)';
+    const border = isCurrentMonth ? 'border:1px solid var(--gold);' : '';
+    return `<div class="mini-bar" style="height:${Math.max(pct, 6)}%; background:${bg}; ${border}" title="${bulanLabels[i]} ${thisYear} — ${label}"></div>`;
+  }).join('');
+
+  // Label tahun & total tahunan
+  const todayLabel = document.getElementById('today-date-label');
+  if (todayLabel) todayLabel.textContent = `${thisYear}`;
+  const totalRevYear = monthlyRev.reduce((a, b) => a + b, 0);
+  const todayRevEl = document.getElementById('today-total-rev');
+  if (todayRevEl) todayRevEl.textContent = totalRevYear > 0 ? `Total ${thisYear}: Rp ${totalRevYear.toLocaleString('id-ID')}` : 'Belum ada transaksi tahun ini';
+
+  renderBookings();
+  renderCustomers();
+  renderServicesTable();
+  renderTeamTable();
+  renderSchedulesOverview();
+  renderTestiTable();
+  renderReports();
+
+  // Pre-fill settings form
+  const sName = document.getElementById('s-name-first');
+  const sNameLast = document.getElementById('s-name-last');
+  const sAddr = document.getElementById('s-address');
+  const sPhone = document.getElementById('s-phone');
+  const sEmail = document.getElementById('s-email');
+  const sHW = document.getElementById('s-hours-weekday');
+  const sHS = document.getElementById('s-hours-sat');
+  const sSun = document.getElementById('s-hours-sun');
+  if (sName) sName.value = SETTINGS.nameFirst || 'Serene';
+  if (sNameLast) sNameLast.value = SETTINGS.nameLast || 'Touch';
+  if (sAddr) sAddr.value = SETTINGS.address;
+  if (sPhone) sPhone.value = SETTINGS.phone;
+  if (sEmail) sEmail.value = SETTINGS.email;
+  if (sHW) sHW.value = SETTINGS.hoursWeekday;
+  if (sHS) sHS.value = SETTINGS.hoursSat;
+  if (sSun) sSun.value = SETTINGS.hoursSun;
+  // Pre-fill WA template
+  const waTemplateEl = document.getElementById('s-wa-template');
+  if (waTemplateEl) {
+    waTemplateEl.value = SETTINGS.waTemplate || DEFAULT_WA_TEMPLATE;
+    updateWaPreview();
+  }
+  renderSlotManager();
+
+  // Modal selects
+  const mbs = document.getElementById('mb-service');
+  mbs.innerHTML = DB.services.filter(s=>s.active).map(s=>`<option value="${s.name}">${s.name}</option>`).join('');
+  const mbt = document.getElementById('mb-therapist');
+  mbt.innerHTML = DB.team.filter(t=>t.status==='aktif').map(t=>`<option value="${t.name}">${t.name}</option>`).join('');
+  // Sync jam pada modal booking dari SETTINGS agar selalu sinkron
+  const mbtTime = document.getElementById('mb-time');
+  if (mbtTime) {
+    const prevVal = mbtTime.value;
+    mbtTime.innerHTML = getAllSlots().map(s => `<option value="${s}">${s}</option>`).join('');
+    if (prevVal) mbtTime.value = prevVal;
+  }
+}
+
+function statusBadge(s) {
+  const map = { menunggu:'badge-blue', dikonfirmasi:'badge-gold', selesai:'badge-green', dibatalkan:'badge-red' };
+  return `<span class="badge ${map[s]||'badge-blue'}">${s}</span>`;
+}
+
+function formatDate(d) {
+  if (!d) return '-';
+  const parts = d.split('-');
+  if (parts.length !== 3) return d;
+  return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function renderBookings() {
+  const q = (document.getElementById('search-booking')?.value || '').toLowerCase();
+  const rows = DB.bookings.filter(b => !q || b.name.toLowerCase().includes(q) || b.service.toLowerCase().includes(q));
+  document.getElementById('bookings-table').innerHTML = rows.length ? rows.map((b, i) => `
+    <tr>
+      <td>${i + 1}</td><td>${b.name}</td><td>${b.phone}</td><td>${b.service}</td>
+      <td>${formatDate(b.date)}</td><td>${b.time || '-'}</td>
+      <td style="max-width:140px; font-size:0.8rem; color:rgba(255,255,255,0.5);">${b.note ? `<span title="${b.note}">📝 ${b.note.length > 30 ? b.note.slice(0, 30) + '…' : b.note}</span>` : '<span style="opacity:0.3;">—</span>'}</td>
+      <td>${statusBadge(b.status)}</td>
+      <td><div style="display:flex; gap:6px;">
+        <button class="admin-btn admin-btn-ghost" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="editBooking(${b.id})">Edit</button>
+        <button class="admin-btn admin-btn-danger" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="deleteItem('bookings',${b.id})">Hapus</button>
+      </div></td>
+    </tr>`).join('') : '<tr><td colspan="9" style="text-align:center;opacity:0.4;padding:1.5rem;">Tidak ada data booking</td></tr>';
+}
+
+function renderCustomers() {
+  document.getElementById('customers-table').innerHTML = DB.customers.map((c,i) => `
+    <tr>
+      <td>${i+1}</td><td>${c.name}</td><td>${c.phone}</td><td>${c.email}</td>
+      <td>${c.visits}x</td><td>Rp ${c.spend.toLocaleString('id-ID')}</td>
+      <td><button class="admin-btn admin-btn-danger" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="deleteItem('customers',${c.id})">Hapus</button></td>
+    </tr>`).join('');
+}
+
+function renderServicesTable() {
+  document.getElementById('services-table').innerHTML = DB.services.map((s,i) => `
+    <tr>
+      <td>${i+1}</td><td>${s.icon} ${s.name}</td><td>${s.duration} mnt</td>
+      <td>Rp ${s.price.toLocaleString('id-ID')}</td>
+      <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${s.desc}</td>
+      <td><label class="toggle"><input type="checkbox" ${s.active?'checked':''} onchange="toggleService(${s.id},this.checked)"><div class="toggle-slider"></div></label></td>
+      <td><div style="display:flex; gap:6px;">
+        <button class="admin-btn admin-btn-ghost" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="editService(${s.id})">Edit</button>
+        <button class="admin-btn admin-btn-danger" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="deleteItem('services',${s.id})">Hapus</button>
+      </div></td>
+    </tr>`).join('');
+}
+
+function renderTeamTable() {
+  const HARI = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  document.getElementById('team-table').innerHTML = DB.team.map((t,i) => {
+    const sched = t.schedule || { days:[], slots:[] };
+    const hariAktif = sched.days && sched.days.length ? sched.days.map(d => HARI[d]).join(', ') : '<span style="opacity:0.3;">Belum diatur</span>';
+    const slotCount = sched.slots ? sched.slots.length : 0;
+    return `<tr>
+      <td>${i+1}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+          ${t.photo
+            ? `<img src="${t.photo}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:center top;border:1px solid rgba(184,151,90,0.3);" alt="${t.name}">`
+            : `<span style="width:36px;height:36px;border-radius:50%;background:rgba(184,151,90,0.15);display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;">${t.emoji}</span>`}
+          ${t.name}
+        </div>
+      </td>
+      <td>${t.spec}</td>
+      <td>${t.cert}</td><td>${t.rating}★</td>
+      <td style="font-size:0.8rem;">${t.wa ? `<a href="https://wa.me/${t.wa.replace(/\D/g,'').replace(/^0/,'62')}" target="_blank" style="color:var(--gold);text-decoration:none;">📱 ${t.wa}</a>` : '<span style="opacity:0.3;">—</span>'}</td>
+      <td style="font-size:0.78rem;">
+        <div style="line-height:1.4;">${hariAktif}</div>
+        ${slotCount > 0 ? `<div style="color:rgba(184,151,90,0.6);font-size:0.7rem;margin-top:0.15rem;">${slotCount} slot jam</div>` : ''}
+      </td>
+      <td>${t.status==='aktif'?'<span class="badge badge-green">aktif</span>':t.status==='cuti'?'<span class="badge badge-blue">cuti</span>':'<span class="badge badge-red">nonaktif</span>'}</td>
+      <td><div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="admin-btn admin-btn-ghost" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="openScheduleModal(${t.id})">📅 Jadwal</button>
+        <button class="admin-btn admin-btn-ghost" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="editTherapist(${t.id})">Edit</button>
+        <button class="admin-btn admin-btn-danger" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="deleteItem('team',${t.id})">Hapus</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderTestiTable() {
+  document.getElementById('testi-table').innerHTML = DB.testimonials.map((t,i) => `
+    <tr>
+      <td>${i+1}</td><td>${t.name}</td><td>${'★'.repeat(t.rating)}</td>
+      <td style="max-width:250px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${t.text}</td>
+      <td><label class="toggle"><input type="checkbox" ${t.show?'checked':''} onchange="toggleTesti(${t.id},this.checked)"><div class="toggle-slider"></div></label></td>
+      <td><button class="admin-btn admin-btn-danger" style="padding:0.3rem 0.7rem; font-size:0.75rem;" onclick="deleteItem('testimonials',${t.id})">Hapus</button></td>
+    </tr>`).join('');
+}
+
+function renderReports() {
+  const _n = new Date();
+  const today = `${_n.getFullYear()}-${String(_n.getMonth()+1).padStart(2,'0')}-${String(_n.getDate()).padStart(2,'0')}`;
+  const todayB = DB.bookings.filter(b => b.date === today && b.status !== 'dibatalkan');
+  document.getElementById('r-today').textContent = todayB.length;
+  const todayRev = todayB.filter(b => b.status === 'selesai').reduce((sum, b) => {
+    const svc = DB.services.find(s => s.name === b.service); return sum + (svc ? svc.price : 0);
+  }, 0);
+  document.getElementById('r-rev-today').textContent = 'Rp ' + todayRev.toLocaleString('id-ID');
+
+  const svcCount = {};
+  DB.bookings.forEach(b => { if (b.status !== 'dibatalkan') svcCount[b.service] = (svcCount[b.service] || 0) + 1; });
+  const popular = Object.entries(svcCount).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById('r-popular').textContent = popular ? popular[0].split(' ').slice(0, 2).join(' ') : '-';
+
+  // Terapis dengan booking terbanyak (bukan hardcode team[0])
+  const therapistCount = {};
+  DB.bookings.forEach(b => { if (b.therapist && b.status !== 'dibatalkan') therapistCount[b.therapist] = (therapistCount[b.therapist] || 0) + 1; });
+  const topTherapist = Object.entries(therapistCount).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById('r-therapist').textContent = topTherapist ? topTherapist[0] : (DB.team[0]?.name || '-');
+
+  const total = DB.bookings.filter(b => b.status !== 'dibatalkan').length || 1;
+  document.getElementById('report-table').innerHTML = DB.services.map(s => {
+    const cnt = DB.bookings.filter(b => b.service === s.name && b.status !== 'dibatalkan').length;
+    const rev = DB.bookings.filter(b => b.service === s.name && b.status === 'selesai').reduce((sum, b) => sum + s.price, 0);
+    return `<tr><td>${s.icon} ${s.name}</td><td>${cnt}</td><td>Rp ${rev.toLocaleString('id-ID')}</td><td>${Math.round(cnt / total * 100)}%</td></tr>`;
+  }).join('');
+}
+
+// ========== CRUD ==========
+let editingBookingId = null;
+let editingServiceId = null;
+let editingTherapistId = null;
+
+function openNewBookingModal() {
+  editingBookingId = null;
+  document.getElementById('modal-booking').querySelector('.modal-title').textContent = 'Tambah Booking Baru';
+  document.getElementById('mb-name').value = '';
+  document.getElementById('mb-phone').value = '';
+  // Set tanggal default ke hari ini
+  const n = new Date();
+  const todayVal = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  document.getElementById('mb-date').value = todayVal;
+  document.getElementById('mb-note').value = '';
+  document.getElementById('mb-time').selectedIndex = 0;
+  document.getElementById('mb-status').value = 'menunggu';
+  if (document.getElementById('mb-service').options.length > 0) document.getElementById('mb-service').selectedIndex = 0;
+  if (document.getElementById('mb-therapist').options.length > 0) document.getElementById('mb-therapist').selectedIndex = 0;
+  openModal('modal-booking');
+}
+
+function saveBooking() {
+  const data = {
+    name: document.getElementById('mb-name').value.trim() || 'Tanpa Nama',
+    phone: document.getElementById('mb-phone').value.trim() || '-',
+    service: document.getElementById('mb-service').value,
+    therapist: document.getElementById('mb-therapist').value,
+    date: document.getElementById('mb-date').value || new Date().toISOString().split('T')[0],
+    time: document.getElementById('mb-time').value,
+    status: document.getElementById('mb-status').value,
+    note: document.getElementById('mb-note').value.trim()
+  };
+  if (!data.service) { alert('Pilih layanan terlebih dahulu!'); return; }
+  if (editingBookingId !== null) {
+    const idx = DB.bookings.findIndex(x => x.id === editingBookingId);
+    if (idx !== -1) DB.bookings[idx] = { ...DB.bookings[idx], ...data };
+    editingBookingId = null;
+    persist(); closeModal('modal-booking');
+    renderAdmin(); renderWebsite();
+    alert('✅ Booking berhasil diperbarui!');
+  } else {
+    DB.bookings.push({ id: nextId.booking++, ...data });
+    persist(); closeModal('modal-booking');
+    renderAdmin(); renderWebsite();
+    alert('✅ Booking berhasil ditambahkan!');
+  }
+}
+
+function editBooking(id) {
+  const b = DB.bookings.find(x=>x.id===id);
+  if (!b) return;
+  editingBookingId = id;
+  document.getElementById('modal-booking').querySelector('.modal-title').textContent = 'Edit Booking';
+  document.getElementById('mb-name').value = b.name;
+  document.getElementById('mb-phone').value = b.phone;
+  document.getElementById('mb-date').value = b.date;
+  document.getElementById('mb-time').value = b.time;
+  document.getElementById('mb-status').value = b.status;
+  document.getElementById('mb-note').value = b.note;
+  const svcEl = document.getElementById('mb-service');
+  const thrEl = document.getElementById('mb-therapist');
+  for (let opt of svcEl.options) { if (opt.value === b.service || opt.text === b.service) { opt.selected = true; break; } }
+  for (let opt of thrEl.options) { if (opt.value === b.therapist || opt.text === b.therapist) { opt.selected = true; break; } }
+  openModal('modal-booking');
+}
+
+function openNewServiceModal() {
+  editingServiceId = null;
+  document.getElementById('modal-service').querySelector('.modal-title').textContent = 'Tambah Layanan';
+  document.getElementById('ms-name').value = '';
+  document.getElementById('ms-duration').value = '';
+  document.getElementById('ms-price').value = '';
+  document.getElementById('ms-desc').value = '';
+  document.getElementById('ms-icon').value = '';
+  document.getElementById('ms-status').value = '1';
+  openModal('modal-service');
+}
+
+function editService(id) {
+  const s = DB.services.find(x=>x.id===id);
+  if (!s) return;
+  editingServiceId = id;
+  document.getElementById('modal-service').querySelector('.modal-title').textContent = 'Edit Layanan';
+  document.getElementById('ms-name').value = s.name;
+  document.getElementById('ms-duration').value = s.duration;
+  document.getElementById('ms-price').value = s.price;
+  document.getElementById('ms-desc').value = s.desc;
+  document.getElementById('ms-icon').value = s.icon;
+  document.getElementById('ms-status').value = s.active ? '1' : '0';
+  openModal('modal-service');
+}
+
+function openNewTherapistModal() {
+  editingTherapistId = null;
+  document.getElementById('modal-therapist').querySelector('.modal-title').textContent = 'Tambah Terapis';
+  document.getElementById('mt-name').value = '';
+  document.getElementById('mt-spec').value = '';
+  document.getElementById('mt-cert').value = '';
+  document.getElementById('mt-exp').value = '';
+  document.getElementById('mt-emoji').value = '';
+  document.getElementById('mt-wa').value = '';
+  document.getElementById('mt-status').value = 'aktif';
+  clearTherapistPhoto();
+  openModal('modal-therapist');
+}
+
+function editTherapist(id) {
+  const t = DB.team.find(x=>x.id===id);
+  if (!t) return;
+  editingTherapistId = id;
+  document.getElementById('modal-therapist').querySelector('.modal-title').textContent = 'Edit Terapis';
+  document.getElementById('mt-name').value = t.name;
+  document.getElementById('mt-spec').value = t.spec;
+  document.getElementById('mt-cert').value = t.cert;
+  document.getElementById('mt-exp').value = t.exp;
+  document.getElementById('mt-emoji').value = t.emoji;
+  document.getElementById('mt-wa').value = t.wa || '';
+  document.getElementById('mt-status').value = t.status;
+  // Load photo
+  const area = document.getElementById('mt-photo-area');
+  const dataEl = document.getElementById('mt-photo-data');
+  if (t.photo) {
+    dataEl.value = t.photo;
+    area.innerHTML = `<img src="${t.photo}" alt="preview" style="width:100%;height:100%;object-fit:cover;object-position:center top;">`;
+  } else {
+    clearTherapistPhoto();
+  }
+  openModal('modal-therapist');
+}
+
+function saveService() {
+  const data = {
+    name: document.getElementById('ms-name').value.trim() || 'Layanan Baru',
+    duration: parseInt(document.getElementById('ms-duration').value) || 60,
+    price: parseInt(document.getElementById('ms-price').value) || 100000,
+    desc: document.getElementById('ms-desc').value.trim() || '',
+    icon: document.getElementById('ms-icon').value.trim() || '💆',
+    active: document.getElementById('ms-status').value === '1'
+  };
+  if (editingServiceId !== null) {
+    const idx = DB.services.findIndex(x => x.id === editingServiceId);
+    if (idx !== -1) DB.services[idx] = { ...DB.services[idx], ...data };
+    editingServiceId = null;
+    persist(); closeModal('modal-service');
+    renderAdmin(); renderWebsite();
+    alert('✅ Layanan berhasil diperbarui!');
+  } else {
+    DB.services.push({ id: nextId.service++, ...data });
+    persist(); closeModal('modal-service');
+    renderAdmin(); renderWebsite();
+    alert('✅ Layanan berhasil ditambahkan!');
+  }
+}
+
+function saveTherapist() {
+  const data = {
+    name: document.getElementById('mt-name').value.trim() || 'Terapis Baru',
+    spec: document.getElementById('mt-spec').value.trim() || '',
+    cert: document.getElementById('mt-cert').value.trim() || 'BNSP',
+    exp: parseInt(document.getElementById('mt-exp').value) || 1,
+    emoji: document.getElementById('mt-emoji').value.trim() || '👤',
+    wa: document.getElementById('mt-wa').value.trim() || '',
+    status: document.getElementById('mt-status').value,
+    photo: document.getElementById('mt-photo-data').value || null
+  };
+  if (editingTherapistId !== null) {
+    const idx = DB.team.findIndex(x => x.id === editingTherapistId);
+    if (idx !== -1) DB.team[idx] = { ...DB.team[idx], ...data };  // schedule is preserved via spread
+    editingTherapistId = null;
+    persist(); closeModal('modal-therapist');
+    renderAdmin(); renderWebsite();
+    alert('✅ Terapis berhasil diperbarui!');
+  } else {
+    DB.team.push({ id: nextId.team++, ...data, rating: 5.0, schedule: { days:[1,2,3,4,5], slots:[...getAllSlots()] } });
+    persist(); closeModal('modal-therapist');
+    renderAdmin(); renderWebsite();
+    alert('✅ Terapis berhasil ditambahkan!');
+  }
+}
+
+function saveCustomer() {
+  const name = document.getElementById('mc-name').value.trim();
+  const phone = document.getElementById('mc-phone').value.trim();
+  const email = document.getElementById('mc-email').value.trim();
+  if (!name) { alert('Nama pelanggan wajib diisi!'); return; }
+  DB.customers.push({
+    id: nextId.customer++,
+    name: name || 'Pelanggan Baru',
+    phone: phone || '-',
+    email: email || '-',
+    visits: 0, spend: 0
+  });
+  // Reset form
+  document.getElementById('mc-name').value = '';
+  document.getElementById('mc-phone').value = '';
+  document.getElementById('mc-email').value = '';
+  persist(); closeModal('modal-customer');
+  renderAdmin();
+  alert('✅ Pelanggan berhasil ditambahkan!');
+}
+
+function saveTestimoni() {
+  const rating = parseInt(document.getElementById('mte-rating').value);
+  if (rating < 1 || rating > 5 || isNaN(rating)) { alert('Rating harus antara 1 sampai 5!'); return; }
+  DB.testimonials.push({
+    id: nextId.testi++,
+    name: document.getElementById('mte-name').value.trim() || 'Anonim',
+    loc: document.getElementById('mte-loc').value.trim() || 'Semarang',
+    rating,
+    text: document.getElementById('mte-text').value.trim() || '',
+    show: true
+  });
+  // Reset form
+  document.getElementById('mte-name').value = '';
+  document.getElementById('mte-loc').value = '';
+  document.getElementById('mte-rating').value = '';
+  document.getElementById('mte-text').value = '';
+  persist(); closeModal('modal-testi');
+  renderAdmin(); renderWebsite();
+  alert('✅ Testimoni berhasil ditambahkan!');
+}
+
+function deleteItem(collection, id) {
+  if (!confirm('Yakin hapus data ini?')) return;
+  DB[collection] = DB[collection].filter(x => x.id !== id);
+  persist(); renderAdmin(); renderWebsite();
+}
+
+function toggleService(id, val) {
+  const s = DB.services.find(x=>x.id===id);
+  if (s) s.active = val;
+  persist(); renderWebsite();
+}
+
+function toggleTesti(id, val) {
+  const t = DB.testimonials.find(x=>x.id===id);
+  if (t) t.show = val;
+  persist(); renderWebsite();
+}
+
+// ========== WA TEMPLATE ==========
+const DEFAULT_WA_TEMPLATE = `Halo {{bisnis}}! 👋\n\nSaya ingin melakukan pemesanan:\n\n👤 *Nama:* {{nama}}\n📱 *No. HP:* {{hp}}\n💆 *Layanan:* {{layanan}}\n👩‍⚕️ *Terapis:* {{terapis}}\n📅 *Tanggal:* {{tanggal}}\n⏰ *Jam:* {{jam}}\n📝 *Catatan:* {{catatan}}\n\nMohon konfirmasinya. Terima kasih! 🙏`;
+
+// Simpan data pengaturan di object agar bisa direferensikan fungsi lain
+const SETTINGS = {
+  name: 'Serene Touch',
+  nameFirst: 'Serene',
+  nameLast: 'Touch',
+  address: 'Jl. Gajahmada No. 45, Semarang',
+  phone: '+62 822-1234-5678',
+  email: 'hello@serenetouch.id',
+  hoursWeekday: '09:00 – 21:00',
+  hoursSat: '09:00 – 21:00',
+  hoursSun: '10:00 – 19:00',
+  adminUser: 'admin',
+  adminPass: 'admin123',
+  timeSlots: ['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00','19:00','20:00'],
+  waTemplate: `Halo {{bisnis}}! 👋\n\nSaya ingin melakukan pemesanan:\n\n👤 *Nama:* {{nama}}\n📱 *No. HP:* {{hp}}\n💆 *Layanan:* {{layanan}}\n📅 *Tanggal:* {{tanggal}}\n⏰ *Jam:* {{jam}}\n📝 *Catatan:* {{catatan}}\n\nMohon konfirmasinya. Terima kasih! 🙏`
+};
+
+// Restore saved settings
+(function loadSavedSettings() {
+  try {
+    const savedCfg = localStorage.getItem(STORAGE_CFG);
+    if (savedCfg) {
+      const cfg = JSON.parse(savedCfg);
+      Object.assign(SETTINGS, cfg);
+    }
+    // fallback jika waTemplate belum ada di localStorage
+    if (!SETTINGS.waTemplate) SETTINGS.waTemplate = `Halo {{bisnis}}! 👋\n\nSaya ingin melakukan pemesanan:\n\n👤 *Nama:* {{nama}}\n📱 *No. HP:* {{hp}}\n💆 *Layanan:* {{layanan}}\n👩‍⚕️ *Terapis:* {{terapis}}\n📅 *Tanggal:* {{tanggal}}\n⏰ *Jam:* {{jam}}\n📝 *Catatan:* {{catatan}}\n\nMohon konfirmasinya. Terima kasih! 🙏`;
+    if (!SETTINGS.timeSlots || !SETTINGS.timeSlots.length) SETTINGS.timeSlots = ['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00','19:00','20:00'];
+    // Migrate lama: jika nameFirst/nameLast belum ada, pecah dari name
+    if (!SETTINGS.nameFirst && !SETTINGS.nameLast && SETTINGS.name) {
+      const parts = SETTINGS.name.trim().split(/\s+/);
+      SETTINGS.nameLast = parts.length > 1 ? parts.slice(1).join(' ') : '';
+      SETTINGS.nameFirst = parts[0];
+    }
+    if (!SETTINGS.nameFirst) SETTINGS.nameFirst = 'Serene';
+    if (!SETTINGS.nameLast) SETTINGS.nameLast = 'Touch';
+    // Pastikan SETTINGS.name selalu sinkron
+    SETTINGS.name = (SETTINGS.nameFirst + ' ' + SETTINGS.nameLast).trim();
+  } catch(e) {}
+})();
+
+// ========== LOGO HELPER ==========
+function buildLogoHTML(first, last) {
+  if (last) return `${first} <span>${last}</span>`;
+  return first;
+}
+function updateLogoAll(first, last) {
+  const html = buildLogoHTML(first, last);
+  const navLogo = document.querySelector('#main-nav .nav-logo');
+  if (navLogo) navLogo.innerHTML = html;
+  const footerLogo = document.querySelector('.footer-brand .nav-logo');
+  if (footerLogo) footerLogo.innerHTML = html;
+  const adminLogoText = document.querySelector('.admin-logo-text');
+  if (adminLogoText) adminLogoText.textContent = (first + ' ' + last).trim();
+  const loginSub = document.querySelector('.login-sub');
+  if (loginSub) loginSub.textContent = ((first + ' ' + last).trim()) + ' Management';
+}
+
+function saveSettings() {
+  const nameFirst = document.getElementById('s-name-first').value.trim();
+  const nameLast  = document.getElementById('s-name-last').value.trim();
+  const name      = (nameFirst + ' ' + nameLast).trim() || 'Serene Touch';
+  const address  = document.getElementById('s-address').value.trim();
+  const phone    = document.getElementById('s-phone').value.trim();
+  const email    = document.getElementById('s-email').value.trim();
+  const hWeekday = document.getElementById('s-hours-weekday').value.trim();
+  const hSat     = document.getElementById('s-hours-sat').value.trim();
+  const hSun     = document.getElementById('s-hours-sun').value.trim();
+
+  if (!nameFirst) { alert('Nama depan bisnis tidak boleh kosong!'); return; }
+  if (!address) { alert('Alamat tidak boleh kosong!'); return; }
+  if (!phone)   { alert('No. WhatsApp tidak boleh kosong!'); return; }
+
+  // Simpan ke SETTINGS
+  SETTINGS.nameFirst = nameFirst;
+  SETTINGS.nameLast  = nameLast;
+  SETTINGS.name    = name;
+  SETTINGS.address = address;
+  SETTINGS.phone   = phone;
+  SETTINGS.email   = email;
+  SETTINGS.hoursWeekday = hWeekday;
+  SETTINGS.hoursSat     = hSat;
+  SETTINGS.hoursSun     = hSun;
+  // waTemplate dikelola terpisah lewat saveWaTemplate()
+  saveCfg();
+
+  // Update semua logo
+  updateLogoAll(nameFirst, nameLast);
+
+  // Update footer deskripsi kota (ambil kota dari alamat, setelah koma terakhir)
+  const city = address.split(',').pop().trim() || address;
+  const footerDesc = document.querySelector('.footer-desc');
+  if (footerDesc) footerDesc.textContent = `Layanan pijat premium yang menghadirkan kedamaian dan pemulihan untuk tubuh, pikiran, dan jiwa Anda di ${city}.`;
+
+  // Update kontak di section booking
+  const infoItems = document.querySelectorAll('#booking .info-item');
+  if (infoItems[0]) infoItems[0].innerHTML = `<span class="info-item-icon">📍</span> ${address}`;
+  if (infoItems[1]) infoItems[1].innerHTML = `<span class="info-item-icon">📞</span> ${phone}`;
+  if (infoItems[2]) infoItems[2].innerHTML = `<span class="info-item-icon">⏰</span><div><div>Senin–Jumat: ${hWeekday}</div><div>Sabtu: ${hSat}</div><div>Minggu: ${hSun}</div></div>`;
+  if (infoItems[3]) infoItems[3].innerHTML = `<span class="info-item-icon">📧</span> ${email}`;
+
+  // Update jam di footer
+  const footerHourLinks = document.querySelectorAll('.footer-links');
+  if (footerHourLinks[2]) {
+    const items = footerHourLinks[2].querySelectorAll('li a');
+    if (items[0]) items[0].textContent = `Senin–Jumat: ${hWeekday}`;
+    if (items[1]) items[1].textContent = `Sabtu: ${hSat}`;
+    if (items[2]) items[2].textContent = `Minggu: ${hSun}`;
+  }
+
+  // Update title halaman
+  document.title = `${name} — Jasa Pijat Premium`;
+
+  // Tampilkan pesan sukses inline
+  const btn = document.querySelector('#page-settings button[onclick="saveSettings()"]');
+  if (btn) {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Semua perubahan tersimpan!';
+    btn.disabled = true;
+    setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+  }
+}
+
+function changePassword() {
+  const newUser = document.querySelector('#page-settings input[placeholder="Username baru"]').value.trim();
+  const newPass = document.querySelector('#page-settings input[placeholder="Password baru"]').value;
+  const confirmPass = document.querySelector('#page-settings input[placeholder="Ulangi password"]').value;
+  if (!newPass) { alert('Password baru tidak boleh kosong!'); return; }
+  if (newPass.length < 6) { alert('Password minimal 6 karakter!'); return; }
+  if (newPass !== confirmPass) { alert('Konfirmasi password tidak cocok!'); return; }
+  if (newUser) SETTINGS.adminUser = newUser;
+  SETTINGS.adminPass = newPass;
+  saveCfg();
+  // Reset field
+  document.querySelector('#page-settings input[placeholder="Username baru"]').value = '';
+  document.querySelector('#page-settings input[placeholder="Password baru"]').value = '';
+  document.querySelector('#page-settings input[placeholder="Ulangi password"]').value = '';
+  const btn = document.querySelector('#page-settings button[onclick="changePassword()"]');
+  const orig = btn.textContent;
+  btn.textContent = '✅ Password diubah!';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+}
+
+// ========== PHOTO UPLOAD ==========
+function handleTherapistPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 3 * 1024 * 1024) { alert('Ukuran foto maksimal 3MB!'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    document.getElementById('mt-photo-data').value = dataUrl;
+    const area = document.getElementById('mt-photo-area');
+    area.innerHTML = `<img src="${dataUrl}" alt="preview" style="width:100%;height:100%;object-fit:cover;object-position:center top;">`;
+  };
+  reader.readAsDataURL(file);
+  input.value = ''; // reset so same file can be re-selected
+}
+
+function clearTherapistPhoto() {
+  document.getElementById('mt-photo-data').value = '';
+  document.getElementById('mt-photo-input').value = '';
+  const area = document.getElementById('mt-photo-area');
+  area.innerHTML = `<span class="upload-icon">📷</span><span class="upload-hint">Klik upload<br>JPG / PNG / GIF</span>`;
+}
+
+// ========== AUTO-GENERATE SLOTS FROM JAM OPERASIONAL ==========
+function parseHour(str) {
+  // Parses "09:00", "09.00", "09" etc → returns integer hour (9)
+  if (!str) return null;
+  const m = str.match(/(\d{1,2})[:.\s]/);
+  return m ? parseInt(m[1]) : parseInt(str);
+}
+
+function generateSlotsFromHours() {
+  // Determine opening and closing from hoursWeekday (e.g. "09:00 – 21:00")
+  const raw = SETTINGS.hoursWeekday || '';
+  // Try to split by – or - or s/d
+  const parts = raw.split(/[–\-]|s\/d|sampai/i).map(s => s.trim());
+  let openHour = parseHour(parts[0]);
+  let closeHour = parseHour(parts[1]);
+  if (isNaN(openHour) || openHour == null) openHour = 9;
+  if (isNaN(closeHour) || closeHour == null) closeHour = 21;
+  // Last slot: 1 hour before closing (to allow session time)
+  const lastSlot = closeHour - 1;
+  const slots = [];
+  for (let h = openHour; h <= lastSlot; h++) {
+    slots.push(`${String(h).padStart(2,'0')}:00`);
+  }
+  if (!slots.length) return;
+  if (!confirm(`Generate ${slots.length} slot jam otomatis dari ${String(openHour).padStart(2,'0')}:00 sampai ${String(lastSlot).padStart(2,'0')}:00?\n\nSlot: ${slots.join(', ')}\n\nIni akan mengganti semua slot yang ada sekarang.`)) return;
+  SETTINGS.timeSlots = slots;
+  saveCfg();
+  renderSlotManager();
+  updateTimeSlots();
+}
+
+// ========== JADWAL TERAPIS ==========
+let schedEditId = null;
+let schedDraft = { days: [], slots: [] };
+
+// Nama hari (0=Minggu … 6=Sabtu) — didefinisikan di sini agar bisa dipakai updateTimeSlots
+const HARI_FULL = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+function openScheduleModal(therapistId) {
+  const t = DB.team.find(x => x.id === therapistId);
+  if (!t) return;
+  schedEditId = therapistId;
+  // Clone jadwal terapis atau default
+  const existing = t.schedule || { days: [1,2,3,4,5], slots: [...getAllSlots()] };
+  schedDraft = { days: [...(existing.days || [])], slots: [...(existing.slots || [])] };
+
+  // Set header info
+  document.getElementById('sched-name').textContent = t.name;
+  document.getElementById('sched-spec').textContent = t.spec;
+  const av = document.getElementById('sched-avatar');
+  if (t.photo) {
+    av.innerHTML = `<img src="${t.photo}" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">`;
+  } else {
+    av.textContent = t.emoji || '👤';
+  }
+
+  renderSchedDays();
+  renderSchedSlots();
+  openModal('modal-schedule');
+}
+
+function renderSchedDays() {
+  document.querySelectorAll('#sched-days-grid .schedule-day-btn').forEach(btn => {
+    const day = parseInt(btn.dataset.day);
+    btn.classList.toggle('active', schedDraft.days.includes(day));
+  });
+}
+
+function toggleSchedDay(day) {
+  if (schedDraft.days.includes(day)) {
+    schedDraft.days = schedDraft.days.filter(d => d !== day);
+  } else {
+    schedDraft.days.push(day);
+    schedDraft.days.sort((a,b) => a - b);
+  }
+  renderSchedDays();
+}
+
+function renderSchedSlots() {
+  const allSlots = getAllSlots();
+  const grid = document.getElementById('sched-slots-grid');
+  grid.innerHTML = allSlots.map(slot => {
+    const active = schedDraft.slots.includes(slot);
+    return `<button type="button" class="schedule-slot-btn ${active ? 'active' : ''}" onclick="toggleSchedSlot('${slot}')">${slot}</button>`;
+  }).join('');
+}
+
+function toggleSchedSlot(slot) {
+  if (schedDraft.slots.includes(slot)) {
+    schedDraft.slots = schedDraft.slots.filter(s => s !== slot);
+  } else {
+    schedDraft.slots.push(slot);
+    schedDraft.slots.sort();
+  }
+  renderSchedSlots();
+}
+
+function saveSchedule() {
+  if (!schedEditId) return;
+  if (schedDraft.days.length === 0) { alert('Pilih minimal 1 hari kerja!'); return; }
+  if (schedDraft.slots.length === 0) { alert('Pilih minimal 1 jam tersedia!'); return; }
+  const idx = DB.team.findIndex(x => x.id === schedEditId);
+  if (idx === -1) return;
+  // Deep copy agar tidak ada shared reference
+  DB.team[idx].schedule = { days: [...schedDraft.days], slots: [...schedDraft.slots] };
+  persist();
+  closeModal('modal-schedule');
+  renderAdmin();
+  alert(`✅ Jadwal ${DB.team[idx].name} berhasil disimpan!`);
+}
+
+function renderSchedulesOverview() {
+  const el = document.getElementById('schedules-overview');
+  if (!el) return;
+  const HARI_FULL_ARR = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const allSlots = getAllSlots();
+
+  // Build a matrix: rows = days, cols = slots, cells = therapists
+  let html = '';
+
+  // Per-therapist cards view
+  html += '<div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; margin-bottom:2rem;">';
+  DB.team.filter(t => t.status !== 'nonaktif').forEach(t => {
+    const sched = t.schedule || { days:[], slots:[] };
+    html += `<div class="schedule-view-card">
+      <div style="padding:1rem 1rem 0.75rem; border-bottom:1px solid rgba(184,151,90,0.12); display:flex; align-items:center; justify-content:space-between;">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          ${t.photo ? `<img src="${t.photo}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">` : `<span style="width:36px;height:36px;border-radius:50%;background:rgba(184,151,90,0.15);display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;">${t.emoji}</span>`}
+          <div>
+            <div style="font-size:0.9rem; font-weight:500; color:var(--cream);">${t.name}</div>
+            <div style="font-size:0.7rem; color:rgba(255,255,255,0.35);">${t.spec.split(',')[0]}</div>
+          </div>
+        </div>
+        <button class="admin-btn admin-btn-ghost" style="padding:0.25rem 0.7rem;font-size:0.72rem;" onclick="openScheduleModal(${t.id})">✏️ Edit</button>
+      </div>
+      <div style="padding:0.75rem 1rem;">`;
+
+    if (!sched.days || sched.days.length === 0) {
+      html += `<div style="color:rgba(255,255,255,0.25);font-size:0.8rem;font-style:italic;">Jadwal belum diatur</div>`;
+    } else {
+      HARI_FULL_ARR.forEach((hari, d) => {
+        const isWork = sched.days.includes(d);
+        html += `<div class="schedule-view-row">
+          <div class="schedule-view-day">${hari}</div>
+          <div class="schedule-view-slots">`;
+        if (isWork && sched.slots && sched.slots.length) {
+          html += sched.slots.map(s => `<span class="schedule-slot-tag">${s}</span>`).join('');
+        } else if (isWork) {
+          html += `<span class="schedule-off">Semua slot</span>`;
+        } else {
+          html += `<span class="schedule-off">Libur</span>`;
+        }
+        html += `</div></div>`;
+      });
+    }
+    html += `</div></div>`;
+  });
+  html += '</div>';
+
+  // Weekly grid view (hari × terapis)
+  const activeTeam = DB.team.filter(t => t.status === 'aktif');
+  html += `<div class="admin-table-wrap">
+    <div class="admin-table-title" style="margin-bottom:1rem;">📋 Ringkasan Mingguan</div>
+    <table style="min-width:600px;">
+      <thead><tr><th>Hari</th>${activeTeam.map(t=>`<th>${t.name}</th>`).join('')}</tr></thead>
+      <tbody>`;
+  HARI_FULL_ARR.forEach((hari, d) => {
+    html += `<tr><td style="font-weight:500;color:var(--gold);">${hari}</td>`;
+    activeTeam.forEach(t => {
+      const sched = t.schedule || { days:[], slots:[] };
+      const isWork = sched.days && sched.days.includes(d);
+      if (isWork) {
+        const slotCount = sched.slots ? sched.slots.length : 0;
+        html += `<td><span class="badge badge-green" style="font-size:0.65rem;">✓ ${slotCount} slot</span></td>`;
+      } else {
+        html += `<td><span style="opacity:0.25;font-size:0.78rem;">Libur</span></td>`;
+      }
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+
+  el.innerHTML = html;
+}
+
+function getTherapistSchedule(therapistId) {
+  const t = DB.team.find(x => x.id === therapistId || x.name === therapistId);
+  if (!t) return null;
+  return t.schedule || null;
+}
+
+// Mendapatkan hari dari date string (YYYY-MM-DD) → 0=Sun, 1=Mon, ..., 6=Sat
+function getDayOfWeek(dateStr) {
+  if (!dateStr) return -1;
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d).getDay();
+}
+
+// ========== TIME SLOTS ==========
+const DEFAULT_TIME_SLOTS = ['09:00','10:00','11:00','13:00','14:00','15:00','16:00','17:00','19:00','20:00'];
+// ALL_SLOTS reads live from SETTINGS so admin changes take effect immediately
+function getAllSlots() {
+  return (SETTINGS.timeSlots && SETTINGS.timeSlots.length) ? [...SETTINGS.timeSlots].sort() : [...DEFAULT_TIME_SLOTS];
+}
+
+function updateTimeSlots() {
+  const date = document.getElementById('b-date').value;
+  const container = document.getElementById('b-time-slots');
+  const hint = document.getElementById('b-time-hint');
+  if (!container) return;
+
+  let SLOTS = getAllSlots();
+
+  // Cek jadwal terapis jika sudah dipilih
+  const therapistSelect = document.getElementById('b-therapist');
+  const selectedTherapistId = (therapistSelect && therapistSelect.value) ? parseInt(therapistSelect.value) : null;
+  let therapistNotAvailable = false;
+  let scheduleNote = '';
+
+  if (selectedTherapistId && !isNaN(selectedTherapistId)) {
+    const sched = getTherapistSchedule(selectedTherapistId);
+    if (sched) {
+      // Filter jam sesuai jadwal terapis
+      if (sched.slots && sched.slots.length) {
+        SLOTS = SLOTS.filter(s => sched.slots.includes(s));
+      }
+      // Cek apakah terapis masuk di hari ini
+      const dow = getDayOfWeek(date);
+      if (date && sched.days && sched.days.length && !sched.days.includes(dow)) {
+        therapistNotAvailable = true;
+        scheduleNote = `Terapis tidak bertugas pada hari ${HARI_FULL[dow] || ''}`;
+      }
+      // Tampilkan hari kerja terapis sebagai hint
+      const daysNote = document.getElementById('b-therapist-days-note');
+      if (daysNote && sched.days && sched.days.length) {
+        const HARI_S = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+        daysNote.textContent = `📅 Hari kerja: ${sched.days.map(d => HARI_S[d]).join(', ')}`;
+        daysNote.style.display = 'block';
+      }
+    }
+  } else {
+    const daysNote = document.getElementById('b-therapist-days-note');
+    if (daysNote) daysNote.style.display = 'none';
+  }
+
+  // Jam yang sudah dipesan di tanggal ini (status bukan dibatalkan), filter per terapis jika dipilih
+  const selectedTherapistName = (selectedTherapistId && !isNaN(selectedTherapistId))
+    ? (DB.team.find(t => t.id === selectedTherapistId)?.name || null)
+    : null;
+  const bookedTimes = new Set(
+    DB.bookings
+      .filter(b => b.date === date && b.status !== 'dibatalkan' && (
+        !selectedTherapistName || b.therapist === selectedTherapistName
+      ))
+      .map(b => b.time)
+  );
+
+  const bookedCount = bookedTimes.size;
+
+  if (therapistNotAvailable) {
+    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:1.2rem 0; color:#E24B4A; font-size:0.87rem;">⛔ ${scheduleNote}</div>`;
+    hint.textContent = 'Ganti tanggal atau pilih terapis lain';
+    hint.style.color = '#E24B4A';
+    document.getElementById('b-time').value = '';
+    const submitBtn = document.getElementById('b-submit-btn');
+    if (submitBtn) submitBtn.disabled = true;
+    return;
+  }
+
+  hint.style.color = '';
+  if (SLOTS.length === 0) {
+    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:1.2rem 0; color:var(--muted); font-size:0.87rem;">Tidak ada slot tersedia untuk terapis ini</div>`;
+    hint.textContent = '';
+    document.getElementById('b-time').value = '';
+    const submitBtn = document.getElementById('b-submit-btn');
+    if (submitBtn) submitBtn.disabled = true;
+    return;
+  }
+
+  hint.textContent = bookedCount > 0 ? `(${bookedCount} slot terisi)` : '';
+
+  const currentSelected = document.getElementById('b-time').value;
+  let firstAvailable = null;
+
+  container.innerHTML = SLOTS.map(slot => {
+    const isBooked = bookedTimes.has(slot);
+    const isSelected = slot === currentSelected && !isBooked;
+    if (!isBooked && !firstAvailable) firstAvailable = slot;
+    return `<button type="button" class="time-slot${isBooked ? ' booked' : ''}${isSelected ? ' selected' : ''}"
+      data-slot="${slot}"
+      ${isBooked ? 'disabled title="Sudah dipesan"' : `onclick="selectTimeSlot('${slot}')"`}>
+      ${slot}${isBooked ? '<br><span style="font-size:0.65rem;opacity:0.7;">Terisi</span>' : ''}
+    </button>`;
+  }).join('');
+
+  // Jika slot terpilih sudah terisi, auto-pilih slot pertama yang tersedia
+  if (bookedTimes.has(currentSelected) && firstAvailable) {
+    selectTimeSlot(firstAvailable);
+  } else if ((!currentSelected || !SLOTS.includes(currentSelected)) && firstAvailable) {
+    selectTimeSlot(firstAvailable);
+  }
+
+  // Update state tombol submit dan error message
+  const submitBtn = document.getElementById('b-submit-btn');
+  const timeError = document.getElementById('b-time-error');
+  const hasTime = !!document.getElementById('b-time').value;
+  if (submitBtn) submitBtn.disabled = !hasTime;
+  if (timeError) timeError.style.display = 'none'; // reset saat tanggal berubah
+}
+
+function selectTimeSlot(slot) {
+  document.getElementById('b-time').value = slot;
+  document.querySelectorAll('#b-time-slots .time-slot').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.slot === slot);
+  });
+  // Aktifkan tombol submit & sembunyikan error saat jam dipilih
+  const submitBtn = document.getElementById('b-submit-btn');
+  if (submitBtn) submitBtn.disabled = false;
+  const timeError = document.getElementById('b-time-error');
+  if (timeError) timeError.style.display = 'none';
+}
+
+function renderSlotManager() {
+  const list = document.getElementById('slot-manager-list');
+  if (!list) return;
+  const slots = getAllSlots();
+  list.innerHTML = slots.map(slot =>
+    `<button type="button" class="slot-chip" onclick="removeTimeSlot('${slot}')" title="Klik untuk hapus">
+      ${slot} <span class="slot-x">✕</span>
+    </button>`
+  ).join('');
+}
+
+function addTimeSlot() {
+  const input = document.getElementById('s-new-slot');
+  const val = input.value.trim();
+  if (!val) { alert('Pilih jam terlebih dahulu!'); return; }
+  // Format HH:MM
+  const [h, m] = val.split(':');
+  const formatted = `${String(parseInt(h)).padStart(2,'0')}:${String(parseInt(m)).padStart(2,'0')}`;
+  if (!SETTINGS.timeSlots) SETTINGS.timeSlots = [...DEFAULT_TIME_SLOTS];
+  if (SETTINGS.timeSlots.includes(formatted)) { alert('Jam ini sudah ada!'); return; }
+  SETTINGS.timeSlots.push(formatted);
+  SETTINGS.timeSlots.sort();
+  saveCfg();
+  input.value = '';
+  renderSlotManager();
+  updateTimeSlots();
+}
+
+function removeTimeSlot(slot) {
+  if (!confirm(`Hapus jam ${slot} dari pilihan booking?`)) return;
+  if (!SETTINGS.timeSlots) SETTINGS.timeSlots = [...DEFAULT_TIME_SLOTS];
+  SETTINGS.timeSlots = SETTINGS.timeSlots.filter(s => s !== slot);
+  saveCfg();
+  renderSlotManager();
+  updateTimeSlots();
+}
+
+function resetTimeSlots() {
+  if (!confirm('Reset ke slot jam default?')) return;
+  SETTINGS.timeSlots = [...DEFAULT_TIME_SLOTS];
+  saveCfg();
+  renderSlotManager();
+  updateTimeSlots();
+}
+
+function saveWaTemplate() {
+  const tpl = document.getElementById('s-wa-template').value;
+  SETTINGS.waTemplate = tpl;
+  saveCfg();
+  updateWaPreview();
+  const btn = document.querySelector('button[onclick="saveWaTemplate()"]');
+  const orig = btn.textContent;
+  btn.textContent = '✅ Tersimpan!';
+  btn.disabled = true;
+  setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
+}
+
+function resetWaTemplate() {
+  if (!confirm('Reset template ke pesan default?')) return;
+  SETTINGS.waTemplate = DEFAULT_WA_TEMPLATE;
+  saveCfg();
+  document.getElementById('s-wa-template').value = DEFAULT_WA_TEMPLATE;
+  updateWaPreview();
+}
+
+function updateWaPreview() {
+  const tpl = document.getElementById('s-wa-template')?.value || SETTINGS.waTemplate || '';
+  const now = new Date();
+  const bulanNama = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const tglContoh = `${now.getDate()} ${bulanNama[now.getMonth()]} ${now.getFullYear()}`;
+  const preview = tpl
+    .replace(/{{bisnis}}/g, SETTINGS.name || 'Serene Touch')
+    .replace(/{{nama}}/g, 'Budi Santoso')
+    .replace(/{{hp}}/g, '082211223344')
+    .replace(/{{layanan}}/g, 'Balinese Massage')
+    .replace(/{{terapis}}/g, 'Sari Dewi')
+    .replace(/{{tanggal}}/g, tglContoh)
+    .replace(/{{jam}}/g, '14:00')
+    .replace(/{{catatan}}/g, 'Alergi minyak kelapa');
+  const el = document.getElementById('wa-preview');
+  if (el) el.textContent = preview;
+}
+
+// ========== RESET DATA ==========
+function resetAllData() {
+  if (!confirm('Yakin ingin menghapus semua data tersimpan dan kembali ke data default? Tindakan ini tidak dapat dibatalkan!')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(STORAGE_IDS);
+  localStorage.removeItem(STORAGE_CFG);
+  location.reload();
+}
+
+// ========== UI HELPERS ==========
+function switchPage(name, el) {
+  document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  if (el) el.classList.add('active');
+  const titles = { dashboard:'Dashboard', bookings:'Manajemen Booking', customers:'Data Pelanggan', services:'Manajemen Layanan', team:'Tim Terapis', schedules:'Jadwal Terapis', testimonials:'Testimoni', reports:'Laporan', settings:'Pengaturan' };
+  document.getElementById('admin-title').textContent = titles[name] || name;
+  // Sync bottom nav
+  document.querySelectorAll('.bottom-tab[data-page]').forEach(t => {
+    t.classList.toggle('active', t.dataset.page === name);
+  });
+  closeSidebar();
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function openAdmin() { document.getElementById('login-screen').classList.add('open'); }
+function closeLogin() { document.getElementById('login-screen').classList.remove('open'); }
+
+function toggleSidebar() {
+  document.getElementById('admin-sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('admin-sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
+
+function switchPageMobile(name, el) {
+  document.querySelectorAll('.bottom-tab[data-page]').forEach(t => t.classList.remove('active'));
+  if (el && el.dataset.page) el.classList.add('active');
+  const sidebarItem = document.querySelector(`.admin-nav-item[onclick*="'${name}'"]`);
+  switchPage(name, sidebarItem || el);
+  // closeSidebar sudah dipanggil di dalam switchPage
+}
+
+function doLogin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value;
+  if (u === SETTINGS.adminUser && p === SETTINGS.adminPass) {
+    document.getElementById('login-err').style.display = 'none';
+    document.getElementById('login-screen').classList.remove('open');
+    document.getElementById('admin-panel').classList.add('open');
+    renderAdmin();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+
+function closeAdmin() {
+  document.getElementById('admin-panel').classList.remove('open');
+}
+
+function submitBooking() {
+  const name = document.getElementById('b-name').value.trim();
+  const phone = document.getElementById('b-phone').value.trim();
+  const service = document.getElementById('b-service').value;
+  const date = document.getElementById('b-date').value;
+  const time = document.getElementById('b-time').value;
+  const note = document.getElementById('b-note').value.trim();
+
+  // Ambil terapis yang dipilih
+  const therapistSelect = document.getElementById('b-therapist');
+  const therapistId = therapistSelect ? parseInt(therapistSelect.value) : null;
+  const therapistObj = therapistId ? DB.team.find(t => t.id === therapistId) : null;
+  const therapistName = therapistObj ? therapistObj.name : (DB.team.find(t => t.status === 'aktif')?.name || '-');
+
+  if (!name || !service || !date) { alert('Harap lengkapi formulir!'); return; }
+  if (!therapistId) { alert('Harap pilih terapis terlebih dahulu!'); return; }
+  if (!time) {
+    const timeError = document.getElementById('b-time-error');
+    if (timeError) { timeError.style.display = 'block'; timeError.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    return;
+  }
+
+  DB.bookings.push({
+    id: nextId.booking++,
+    name, phone, service,
+    therapist: therapistName,
+    date, time,
+    status: 'menunggu', note
+  });
+
+  // Cek apakah pelanggan sudah ada
+  const existing = DB.customers.find(c => c.phone === phone && phone !== '' && phone !== '-');
+  if (existing) {
+    existing.visits += 1;
+  } else {
+    DB.customers.push({ id: nextId.customer++, name, phone: phone || '-', email: '-', visits: 1, spend: 0 });
+  }
+  persist();
+
+  if (document.getElementById('admin-panel').classList.contains('open')) renderAdmin();
+
+  // Format tanggal
+  const [y, m, d] = date.split('-');
+  const bulanNama = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const tglFormatted = `${parseInt(d)} ${bulanNama[parseInt(m)-1]} ${y}`;
+
+  // Susun pesan WA dari template
+  const businessName = SETTINGS.name || 'Serene Touch';
+  const template = SETTINGS.waTemplate || '';
+  const waMsg = template
+    .replace(/{{bisnis}}/g, businessName)
+    .replace(/{{nama}}/g, name)
+    .replace(/{{hp}}/g, phone || '-')
+    .replace(/{{layanan}}/g, service)
+    .replace(/{{terapis}}/g, therapistName)
+    .replace(/{{tanggal}}/g, tglFormatted)
+    .replace(/{{jam}}/g, time)
+    .replace(/{{catatan}}/g, note || '-');
+
+  // Tentukan nomor tujuan WA:
+  // Jika terapis punya nomor WA pribadi → kirim ke sana, jika tidak → fallback ke nomor bisnis
+  let targetPhone = '';
+  if (therapistObj && therapistObj.wa) {
+    targetPhone = therapistObj.wa;
+  } else {
+    targetPhone = SETTINGS.phone || '';
+  }
+  const rawPhone = targetPhone.replace(/\D/g, '');
+  const waNumber = rawPhone.startsWith('0') ? '62' + rawPhone.slice(1) : rawPhone.startsWith('62') ? rawPhone : '62' + rawPhone;
+
+  // Reset form
+  document.getElementById('b-name').value = '';
+  document.getElementById('b-phone').value = '';
+  // Reset date ke hari ini agar slot reload dengan benar
+  const n = new Date();
+  const todayVal = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  document.getElementById('b-date').value = todayVal;
+  document.getElementById('b-note').value = '';
+  document.getElementById('b-service').selectedIndex = 0;
+  if (therapistSelect) therapistSelect.selectedIndex = 0;
+  document.getElementById('b-time').value = '';
+  // Sembunyikan info hari kerja terapis setelah reset
+  const daysNote = document.getElementById('b-therapist-days-note');
+  if (daysNote) daysNote.style.display = 'none';
+  updateTimeSlots();
+
+  // Tampilkan pesan sukses lalu redirect ke WA
+  document.getElementById('b-msg').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('b-msg').style.display = 'none';
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`, '_blank');
+  }, 1000);
+}
+
+// ========== NAV SCROLL ==========
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ========== MOBILE MENU ==========
+function openMobileMenu() {
+  document.getElementById('nav-mobile-menu').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  document.getElementById('nav-mobile-menu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ========== AUTO REFRESH REALTIME ==========
+setInterval(() => {
+  if (document.getElementById('admin-panel').classList.contains('open')) {
+    renderAdmin();
+  }
+}, 60000); // refresh tiap 1 menit
+
+// ========== INIT ==========
+// Patch sample bookings agar ada yang hari ini (untuk demo realtime chart)
+// Hanya jalankan jika belum ada data tersimpan
+(function seedTodayBookings() {
+  if (localStorage.getItem(STORAGE_KEY)) return; // skip jika sudah ada data tersimpan
+  const n = new Date();
+  const today = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  const sampleTimes = ['09:00','10:00','11:00','14:00','15:00'];
+  const sampleServices = ['Pijat Tradisional Jawa','Balinese Massage','Deep Tissue Massage','Aromatherapy Massage','Reflexology Kaki'];
+  const sampleNames = ['Rina Susanti','Agus Hermawan','Lina Kartika','Teguh Prasetyo','Dewi Lestari'];
+  const sampleTherapists = ['Sari Dewi','Budi Santoso','Ratna Indah','Hendra Putra','Sari Dewi'];
+  sampleTimes.forEach((time, i) => {
+    DB.bookings.push({
+      id: nextId.booking++,
+      name: sampleNames[i], phone: '-',
+      service: sampleServices[i],
+      therapist: sampleTherapists[i],
+      date: today, time,
+      status: i < 3 ? 'selesai' : 'dikonfirmasi',
+      note: ''
+    });
+  });
+})();
+
+// Set minimum date ke hari ini untuk semua input tanggal
+(function setMinDates() {
+  const n = new Date();
+  const today = `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  const bDate = document.getElementById('b-date');
+  const mbDate = document.getElementById('mb-date');
+  if (bDate) bDate.min = today;
+  if (mbDate) mbDate.min = today;
+  // Set default date to today BEFORE rendering slots
+  if (bDate && !bDate.value) { bDate.value = today; }
+  if (mbDate && !mbDate.value) { mbDate.value = today; }
+  updateTimeSlots();
+})();
+
+// Terapkan SETTINGS tersimpan ke DOM
+(function applySettings() {
+  const { nameFirst, nameLast, name, address, phone, email, hoursWeekday, hoursSat, hoursSun } = SETTINGS;
+  updateLogoAll(nameFirst || name, nameLast || '');
+  const city = address.split(',').pop().trim() || address;
+  const footerDesc = document.querySelector('.footer-desc');
+  if (footerDesc) footerDesc.textContent = `Layanan pijat premium yang menghadirkan kedamaian dan pemulihan untuk tubuh, pikiran, dan jiwa Anda di ${city}.`;
+  const infoItems = document.querySelectorAll('#booking .info-item');
+  if (infoItems[0]) infoItems[0].innerHTML = `<span class="info-item-icon">📍</span> ${address}`;
+  if (infoItems[1]) infoItems[1].innerHTML = `<span class="info-item-icon">📞</span> ${phone}`;
+  if (infoItems[2]) infoItems[2].innerHTML = `<span class="info-item-icon">⏰</span><div><div>Senin–Jumat: ${hoursWeekday}</div><div>Sabtu: ${hoursSat}</div><div>Minggu: ${hoursSun}</div></div>`;
+  if (infoItems[3]) infoItems[3].innerHTML = `<span class="info-item-icon">📧</span> ${email}`;
+  const footerHourLinks = document.querySelectorAll('.footer-links');
+  if (footerHourLinks[2]) {
+    const items = footerHourLinks[2].querySelectorAll('li a');
+    if (items[0]) items[0].textContent = `Senin–Jumat: ${hoursWeekday}`;
+    if (items[1]) items[1].textContent = `Sabtu: ${hoursSat}`;
+    if (items[2]) items[2].textContent = `Minggu: ${hoursSun}`;
+  }
+  document.title = `${name} — Jasa Pijat Premium`;
+})();
+
+// Migrasi: isi schedule.slots yang kosong setelah SETTINGS & getAllSlots() siap
+(function migrateScheduleSlots() {
+  const defaultSlots = getAllSlots();
+  DB.team.forEach(t => {
+    if (t.schedule && Array.isArray(t.schedule.slots) && t.schedule.slots.length === 0) {
+      t.schedule.slots = [...defaultSlots];
+    }
+  });
+})();
+
+renderWebsite();
+</script>
+</body>
+</html>
